@@ -1,844 +1,592 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="th" translate="no" class="notranslate">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>ADVANCE VOCAB BEAT - SET 15-18 Exam</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      font-family: 'Prompt', sans-serif;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-    input {
-      -webkit-user-select: text !important;
-      user-select: text !important;
-    }
-    body {
-      background-color: #0f172a;
-      color: #f8fafc;
-      overflow-x: hidden;
-    }
-    .glass-card {
-      background: rgba(30, 41, 59, 0.92);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .option-btn {
-      transition: all 0.15s ease;
-    }
-    .option-btn:hover {
-      transform: translateX(4px);
-    }
-    .shake {
-      animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
-    }
-    @keyframes shake {
-      10%, 90% { transform: translate3d(-2px, 0, 0); }
-      20%, 80% { transform: translate3d(4px, 0, 0); }
-      30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
-      40%, 60% { transform: translate3d(6px, 0, 0); }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="google" content="notranslate">
+<meta name="robots" content="noindex, nofollow">
+<title>VOCAB BEAT ADVANCE · SET 15–18 Exam</title>
+<style>
+:root{
+  --bg:#0d0b14; --panel:#16131f; --panel2:#1e1a2b; --line:#2e2840;
+  --ink:#f3f0fa; --mute:#9d95b5; --cyan:#22e6e6; --gold:#ffd23f; --red:#ff5a5f; --green:#3ddc84;
+  --s15:#a78bfa; --s16:#22e6e6; --s17:#ffd23f; --s18:#ff5a5f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:"Sarabun","Leelawadee UI","Thonburi","Noto Sans Thai",system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:var(--bg); color:var(--ink); min-height:100vh;
+  -webkit-user-select:none; user-select:none; -webkit-touch-callout:none;
+  -webkit-tap-highlight-color:transparent; overflow-x:hidden;
+}
+body::before{content:"";position:fixed;inset:0;z-index:-1;
+  background:
+   radial-gradient(900px 500px at 85% -10%, rgba(34,230,230,.14), transparent 60%),
+   radial-gradient(800px 500px at -10% 110%, rgba(255,90,95,.12), transparent 60%),
+   repeating-linear-gradient(90deg, rgba(255,255,255,.025) 0 1px, transparent 1px 64px);
+}
+input{-webkit-user-select:text;user-select:text;font:inherit}
+button{font:inherit;cursor:pointer;border:0}
+.wrap{max-width:760px;margin:0 auto;padding:22px 16px 48px}
+.screen{display:none;animation:rise .45s ease both}
+.screen.on{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ---------- brand ---------- */
+.brand{text-align:center;margin:18px 0 26px}
+.brand .adv{letter-spacing:.6em;font-size:.78rem;font-weight:700;color:var(--mute);padding-left:.6em}
+.brand h1{font-size:clamp(2.4rem,9vw,4rem);font-weight:900;letter-spacing:.04em;line-height:1.02;
+  background:linear-gradient(90deg,var(--cyan),#8af6f6 45%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand .sets{display:flex;justify-content:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.chip{font-size:.78rem;font-weight:800;padding:5px 12px;border-radius:999px;border:1.5px solid currentColor;letter-spacing:.06em}
+.brand .by{margin-top:12px;color:var(--mute);font-size:.85rem}
+
+.card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 20px 50px rgba(0,0,0,.45)}
+.card h2{font-size:1.15rem;margin-bottom:14px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:.88rem;color:var(--mute);margin-bottom:6px;font-weight:600}
+.field input{width:100%;padding:14px 16px;border-radius:14px;border:1.5px solid var(--line);background:#0f0c18;color:var(--ink);font-size:1.05rem;outline:none;transition:.2s}
+.field input:focus{border-color:var(--cyan);box-shadow:0 0 0 4px rgba(34,230,230,.12)}
+.err{color:var(--red);font-size:.88rem;min-height:1.2em;margin:4px 0 8px}
+.rules{list-style:none;display:grid;gap:8px;margin:16px 0 18px;font-size:.92rem;color:#d8d2ea}
+.rules li{display:flex;gap:10px;align-items:flex-start;background:#120f1c;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.rules b{color:var(--gold)}
+.agree{display:flex;gap:10px;align-items:center;font-size:.92rem;margin-bottom:16px;cursor:pointer}
+.agree input{width:20px;height:20px;accent-color:var(--cyan)}
+.btn{display:block;width:100%;padding:15px 18px;border-radius:14px;font-weight:800;font-size:1.05rem;letter-spacing:.02em;
+  background:linear-gradient(90deg,var(--cyan),#7cf3f3);color:#06222a;transition:transform .12s, filter .2s, opacity .2s}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.35;cursor:not-allowed;filter:grayscale(.6)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.gold{background:linear-gradient(90deg,var(--gold),#ffe58a);color:#2a2100}
+.teacher-link{display:block;margin:18px auto 0;background:none;color:#5b5470;font-size:.78rem;text-decoration:underline}
+
+/* ---------- quiz ---------- */
+.topbar{position:sticky;top:0;z-index:20;background:rgba(13,11,20,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);margin:-22px -16px 18px;padding:12px 16px}
+.tb-row{display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:760px;margin:0 auto}
+.who{font-size:.85rem;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:40%}
+.pills{display:flex;gap:8px;align-items:center}
+.pill{font-size:.85rem;font-weight:800;padding:6px 12px;border-radius:999px;background:#1d1829;border:1px solid var(--line);white-space:nowrap}
+.pill.timer.low{color:var(--red);border-color:var(--red);animation:pulse 1s infinite}
+.pill.vio{color:var(--gold)}
+.pill.vio.hot{color:var(--red);border-color:var(--red)}
+@keyframes pulse{50%{opacity:.55}}
+.prog{height:6px;background:#1d1829;border-radius:6px;margin:10px auto 0;max-width:760px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--gold));transition:width .4s ease}
+
+.qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.qnum{font-size:.95rem;font-weight:800;color:var(--mute)}
+.qnum b{font-size:1.6rem;color:var(--ink)}
+.qtype{font-size:.78rem;color:var(--mute);margin-bottom:8px;font-weight:600;letter-spacing:.02em}
+.prompt{font-size:clamp(1.25rem,4.6vw,1.6rem);font-weight:700;line-height:1.5;margin-bottom:22px;min-height:2.4em}
+.prompt .word{display:inline-block;font-size:clamp(1.9rem,8vw,2.6rem);font-weight:900;color:var(--cyan);letter-spacing:.01em}
+.prompt .blank{display:inline-block;min-width:5.5em;border-bottom:3px dashed var(--gold);margin:0 4px;height:1.1em;vertical-align:-2px}
+.opts{display:grid;gap:12px}
+.opt{display:flex;align-items:center;gap:14px;text-align:left;width:100%;padding:16px 16px;border-radius:16px;
+  background:#120f1c;border:1.5px solid var(--line);color:var(--ink);font-size:1.08rem;font-weight:600;transition:border-color .15s, background .15s, transform .1s}
+.opt:active{transform:scale(.99)}
+.opt .k{flex:0 0 34px;height:34px;border-radius:10px;display:grid;place-items:center;font-weight:900;background:#211b30;color:var(--mute);font-size:.95rem}
+.opt.sel{border-color:var(--cyan);background:rgba(34,230,230,.08)}
+.opt.sel .k{background:var(--cyan);color:#06222a}
+.actions{margin-top:20px}
+.note{font-size:.8rem;color:var(--mute);text-align:center;margin-top:10px}
+
+/* ---------- overlays ---------- */
+.overlay{position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:20px;background:rgba(8,6,12,.92);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.overlay.on{display:grid}
+.modal{max-width:440px;width:100%;background:var(--panel2);border:1.5px solid var(--red);border-radius:22px;padding:26px;text-align:center;animation:shake .45s}
+.modal.calm{border-color:var(--line);animation:rise .3s}
+.modal .ico{font-size:3rem;margin-bottom:6px}
+.modal h3{font-size:1.25rem;margin-bottom:8px}
+.modal p{color:#d8d2ea;font-size:.95rem;margin-bottom:18px;line-height:1.55}
+.modal .btn+.btn{margin-top:10px}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,40px);opacity:0;z-index:120;background:#2a1520;border:1px solid var(--red);color:#ffd7d8;
+  padding:10px 16px;border-radius:12px;font-size:.9rem;font-weight:600;transition:.3s;pointer-events:none;max-width:90vw;text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- watermark ---------- */
+#wm{position:fixed;inset:-50%;z-index:90;pointer-events:none;display:none;transform:rotate(-24deg);
+  font-size:15px;font-weight:700;color:rgba(255,255,255,.045);line-height:70px;word-spacing:40px;white-space:pre-wrap;overflow:hidden}
+#wm.on{display:block}
+
+/* ---------- result ---------- */
+.res-top{text-align:center;padding:6px 0 12px}
+.res-name{font-size:1.25rem;font-weight:800}
+.res-sub{color:var(--mute);font-size:.88rem;margin-top:2px}
+.ring{--p:0;width:190px;height:190px;border-radius:50%;margin:18px auto 10px;display:grid;place-items:center;
+  background:conic-gradient(var(--cyan) calc(var(--p)*1%), #231d33 0)}
+.ring>div{width:156px;height:156px;border-radius:50%;background:var(--panel);display:grid;place-items:center;text-align:center}
+.ring b{font-size:3rem;font-weight:900;line-height:1}
+.ring span{color:var(--mute);font-size:.9rem}
+.grade{display:inline-block;margin-top:4px;font-weight:900;padding:5px 16px;border-radius:999px;font-size:.95rem}
+.breakdown{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:18px 0}
+.bd{background:#120f1c;border:1px solid var(--line);border-radius:14px;padding:10px 6px;text-align:center}
+.bd .t{font-size:.72rem;font-weight:800;letter-spacing:.06em}
+.bd .v{font-size:1.3rem;font-weight:900;margin-top:2px}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:.88rem}
+.meta div{background:#120f1c;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.meta small{display:block;color:var(--mute);font-size:.74rem;margin-bottom:2px}
+.meta .full{grid-column:1/-1}
+.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:1.15rem;letter-spacing:.18em;color:var(--gold);font-weight:800}
+.vlog{margin-top:10px;font-size:.8rem;color:var(--mute);max-height:120px;overflow:auto;background:#120f1c;border:1px solid var(--line);border-radius:12px;padding:8px 12px;text-align:left}
+.vlog div{padding:2px 0;border-bottom:1px dashed #2a2438}
+.vlog div:last-child{border:0}
+.capture{margin-top:16px;padding:12px;border-radius:14px;text-align:center;font-weight:700;background:rgba(255,210,63,.1);border:1px dashed var(--gold);color:var(--gold);font-size:.92rem}
+.flag{color:var(--red)!important}
+.foot{text-align:center;color:#4f4864;font-size:.75rem;margin-top:24px}
+@media (max-width:480px){ .breakdown{grid-template-columns:repeat(2,1fr)} .card{padding:18px} }
+</style>
 </head>
-<body class="min-h-screen flex flex-col justify-between" oncontextmenu="return false;">
+<body>
+<div id="wm"></div>
 
-  <!-- Top Navigation Bar -->
-  <header class="w-full bg-slate-900/90 border-b border-slate-800 px-4 py-3 sticky top-0 z-40">
-    <div class="max-w-4xl mx-auto flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <div class="bg-red-600 text-white font-bold px-2.5 py-1 rounded text-sm tracking-wider">VOCAB BEAT</div>
-        <div>
-          <h1 class="text-sm sm:text-base font-bold text-white leading-tight">ADVANCE VOCABULARY EXAM</h1>
-          <p class="text-xs text-slate-400">SET 15 - 18 (30 ข้อ) • Academic Year 2026</p>
-        </div>
+<div class="wrap">
+  <!-- ========== REGISTER ========== -->
+  <section class="screen on" id="sc-reg">
+    <div class="brand">
+      <div class="adv">ADVANCE</div>
+      <h1>VOCAB BEAT</h1>
+      <div class="sets">
+        <span class="chip" style="color:var(--s15)">SET 15</span>
+        <span class="chip" style="color:var(--s16)">SET 16</span>
+        <span class="chip" style="color:var(--s17)">SET 17</span>
+        <span class="chip" style="color:var(--s18)">SET 18</span>
       </div>
-      <button id="adminBtn" onclick="openAdminModal()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700 transition">
-        🔒 ครูผู้สอน (Admin)
-      </button>
+      <div class="by">แบบทดสอบคำศัพท์ 30 ข้อ · English Course · By T.OAT</div>
     </div>
-  </header>
 
-  <!-- Main Container -->
-  <main class="flex-grow flex items-center justify-center p-4">
+    <div class="card">
+      <h2>ลงทะเบียนเข้าสอบ</h2>
+      <div class="field"><label for="fname">ชื่อ</label><input id="fname" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="40" placeholder="เช่น สมชาย"></div>
+      <div class="field"><label for="lname">นามสกุล</label><input id="lname" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="40" placeholder="เช่น ใจดี"></div>
+      <div class="err" id="reg-err"></div>
 
-    <!-- 1. หน้าลงทะเบียนเข้าสอบ -->
-    <section id="loginSection" class="w-full max-w-lg glass-card rounded-2xl p-6 sm:p-8 shadow-2xl">
-      <div class="text-center mb-6">
-        <span class="inline-block bg-amber-500/20 text-amber-400 text-xs font-semibold px-3 py-1 rounded-full mb-2 border border-amber-500/30">
-          ANTI-CHEAT PROTECTED SYSTEM
-        </span>
-        <h2 class="text-2xl font-bold text-white">แบบทดสอบคำศัพท์ SET 15 - 18</h2>
-        <p class="text-slate-400 text-sm mt-1">จำนวน 30 ข้อ | เวลาทำข้อสอบ 25 นาที</p>
-      </div>
-
-      <div class="bg-red-950/50 border border-red-500/40 rounded-xl p-4 mb-6 text-xs sm:text-sm text-red-200 space-y-1.5">
-        <p class="font-bold text-red-400 flex items-center gap-1.5">⚠️ กฎการป้องกันการทุจริต (โปรดอ่าน):</p>
-        <ul class="list-disc list-inside space-y-1 text-red-200/90">
-          <li>ระบบจะเปิดโหมด <b>เต็มหน้าจอ (Fullscreen)</b> อัตโนมัติ</li>
-          <li>ห้ามสลับแท็บ, พับหน้าจอ, เปิดแอปอื่น หรือกดออกจาก Fullscreen</li>
-          <li>หากฝ่าฝืนครบ <b>3 ครั้ง (3 Strikes)</b> ระบบจะส่งข้อสอบทันที</li>
-          <li>หากรีเฟรชหน้าจอระหว่างสอบ จะถูกหักสิทธิ์แจ้งเตือน 1 ครั้ง</li>
-        </ul>
-      </div>
-
-      <form id="startForm" onsubmit="handleStartExam(event)" class="space-y-4">
-        <div>
-          <label class="block text-xs font-medium text-slate-300 mb-1">ชื่อ - นามสกุล (ภาษาไทย) <span class="text-red-400">*</span></label>
-          <input type="text" id="fullName" required placeholder="เช่น นายสมชาย ใจดี"
-            class="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-red-500">
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1">เลขประจำตัวนักเรียน <span class="text-red-400">*</span></label>
-            <input type="text" id="studentId" required placeholder="เช่น 12345"
-              class="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-red-500">
-          </div>
-          <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1">ระดับชั้น / เลขที่ <span class="text-red-400">*</span></label>
-            <input type="text" id="classroom" required placeholder="เช่น ม.5/1 เลขที่ 12"
-              class="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-red-500">
-          </div>
-        </div>
-
-        <button type="submit" id="startBtn"
-          class="w-full mt-2 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold py-3 rounded-xl shadow-lg shadow-red-600/30 transition transform active:scale-95">
-          เริ่มทำข้อสอบ (เข้าสู่โหมดเต็มจอ)
-        </button>
-      </form>
-    </section>
-
-    <!-- 2. หน้าทำข้อสอบ -->
-    <section id="examSection" class="hidden w-full max-w-3xl space-y-4">
-      <!-- Status Bar -->
-      <div class="glass-card rounded-xl p-4 flex flex-wrap justify-between items-center gap-3">
-        <div>
-          <p id="displayStudentName" class="text-sm font-bold text-white">-</p>
-          <p id="displayStudentMeta" class="text-xs text-slate-400">-</p>
-        </div>
-        <div class="flex items-center gap-3">
-          <div id="strikeBadge" class="bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold text-amber-400">
-            แจ้งเตือนทุจริต: <span id="warningCount">0</span> / 3
-          </div>
-          <div class="bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-lg text-sm font-bold text-emerald-400">
-            ⏱️ <span id="timerDisplay">25:00</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Progress Bar -->
-      <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-        <div id="progressBar" class="bg-red-500 h-full transition-all duration-300" style="width: 3.33%"></div>
-      </div>
-
-      <!-- Question Card -->
-      <div class="glass-card rounded-2xl p-6 sm:p-8 shadow-xl">
-        <div class="flex justify-between items-center mb-4">
-          <span id="questionSetBadge" class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-semibold px-3 py-1 rounded-full">
-            SET 15
-          </span>
-          <span class="text-sm font-semibold text-slate-400">
-            ข้อที่ <span id="currentQNum" class="text-white text-lg">1</span> / 30
-          </span>
-        </div>
-
-        <h3 id="questionText" class="text-lg sm:text-xl font-semibold text-white mb-6 leading-relaxed">
-          กำลังโหลดคำถาม...
-        </h3>
-
-        <div id="optionsContainer" class="space-y-3">
-          <!-- Options generated by JS -->
-        </div>
-
-        <!-- Navigation Controls -->
-        <div class="flex justify-between items-center mt-8 pt-4 border-t border-slate-700/70">
-          <button onclick="prevQuestion()" id="prevBtn"
-            class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-medium disabled:opacity-40">
-            ← ข้อก่อนหน้า
-          </button>
-
-          <button onclick="nextQuestion()" id="nextBtn"
-            class="px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-sm font-bold shadow-md">
-            ข้อถัดไป →
-          </button>
-
-          <button onclick="confirmSubmit()" id="submitExamBtn"
-            class="hidden px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold shadow-lg shadow-emerald-600/30">
-            ✓ ส่งกระดาษคำตอบ
-          </button>
-        </div>
-      </div>
-
-      <!-- Question Navigator Grid -->
-      <div class="glass-card rounded-xl p-4">
-        <p class="text-xs text-slate-400 mb-2.5">แผนผังข้อสอบ (คลิกเพื่อข้ามไปยังข้อที่ต้องการ):</p>
-        <div id="questionGrid" class="grid grid-cols-10 gap-1.5">
-          <!-- 1-30 buttons -->
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. หน้าแสดงผลคะแนนและเฉลย -->
-    <section id="resultSection" class="hidden w-full max-w-3xl space-y-6">
-      <div class="glass-card rounded-2xl p-6 sm:p-8 text-center shadow-2xl">
-        <div id="resultIcon" class="text-5xl mb-3">🎉</div>
-        <h2 class="text-2xl font-bold text-white">บันทึกผลสอบเรียบร้อยแล้ว</h2>
-        <p id="resultStudentInfo" class="text-slate-400 text-sm mt-1">-</p>
-
-        <div class="my-6 inline-flex flex-col items-center justify-center bg-slate-800/90 border border-slate-700 rounded-2xl px-10 py-6">
-          <span class="text-xs text-slate-400 uppercase tracking-wider">คะแนนรวมของคุณ</span>
-          <div class="text-5xl font-extrabold text-emerald-400 my-1">
-            <span id="finalScore">0</span><span class="text-2xl text-slate-500">/30</span>
-          </div>
-          <span id="resultStatusBadge" class="mt-2 text-xs font-semibold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300">
-            ส่งข้อสอบสำเร็จ
-          </span>
-        </div>
-
-        <p id="syncMessage" class="text-xs text-slate-400">กำลังซิงค์ข้อมูลเข้าสู่ฐานข้อมูล Google Sheets...</p>
-      </div>
-
-      <!-- เฉลยละเอียด -->
-      <div class="glass-card rounded-2xl p-6">
-        <h3 class="text-lg font-bold text-white mb-4">📋 เฉลยข้อสอบทั้งหมด (SET 15 - 18)</h3>
-        <div id="reviewContainer" class="space-y-4 max-h-[500px] overflow-y-auto pr-2">
-          <!-- Review items -->
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Modal แจ้งเตือนการทุจริต -->
-  <div id="cheatModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-slate-900 border-2 border-red-500 rounded-2xl max-w-md w-full p-6 text-center shadow-2xl shake">
-      <div class="text-5xl mb-3">🚨</div>
-      <h3 class="text-xl font-bold text-red-400">ตรวจพบพฤติกรรมเสี่ยงทุจริต!</h3>
-      <p id="cheatReasonText" class="text-slate-200 text-sm mt-2">คุณได้สลับหน้าจอหรือออกจากโหมดเต็มจอ</p>
-      <div class="my-4 bg-red-950/60 border border-red-500/40 rounded-xl py-3">
-        <p class="text-xs text-red-300">คำเตือนครั้งที่</p>
-        <p class="text-3xl font-extrabold text-red-400"><span id="modalStrikeNum">1</span> / 3</p>
-      </div>
-      <p class="text-xs text-slate-400 mb-5">หากครบ 3 ครั้ง ระบบจะยุติการสอบและส่งคะแนนทันที</p>
-      <button onclick="resumeExamFullscreen()" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-3 rounded-xl">
-        รับทราบ และกลับเข้าสู่หน้าจอสอบ
-      </button>
+      <ul class="rules">
+        <li>📝 <span>ข้อสอบ <b>30 ข้อ</b> ข้อละ 1 คะแนน · เวลา <b id="r-time">30</b> นาที (หมดเวลาส่งอัตโนมัติ)</span></li>
+        <li>➡️ <span>ตอบแล้ว<b>ย้อนกลับไม่ได้</b> · ลำดับข้อและตัวเลือกของแต่ละคนไม่เหมือนกัน</span></li>
+        <li>🚫 <span>ห้ามสลับแอป/แท็บ ห้ามคัดลอก ห้ามแปลภาษา — ทุกครั้งจะถูก<b>บันทึกการทุจริต</b></span></li>
+        <li>⛔ <span>ทุจริตครบ <b id="r-max">3</b> ครั้ง ระบบ<b>ส่งข้อสอบทันที</b></span></li>
+        <li>🔒 <span>สอบได้ <b>1 ครั้ง</b> ต่อเครื่อง · จบแล้วแคปหน้าจอผลสอบส่งครู</span></li>
+      </ul>
+      <label class="agree"><input type="checkbox" id="agree"> ฉันรับทราบกติกาและจะสอบด้วยความซื่อสัตย์</label>
+      <button class="btn" id="btn-start" disabled>เริ่มทำข้อสอบ</button>
+      <button class="teacher-link" id="btn-teacher">สำหรับครู</button>
     </div>
+    <div class="foot">Thanakhan-oomsin School · Academic Year 2026</div>
+  </section>
+
+  <!-- ========== QUIZ ========== -->
+  <section class="screen" id="sc-quiz">
+    <div class="topbar">
+      <div class="tb-row">
+        <div class="who" id="who"></div>
+        <div class="pills">
+          <span class="pill vio" id="vio-pill">⚠ 0/3</span>
+          <span class="pill timer" id="timer">30:00</span>
+        </div>
+      </div>
+      <div class="prog"><i id="prog"></i></div>
+    </div>
+    <div class="card" id="quiz">
+      <div class="qhead">
+        <div class="qnum">ข้อ <b id="qn">1</b> / 30</div>
+        <span class="chip" id="qset">SET 15</span>
+      </div>
+      <div class="qtype" id="qtype"></div>
+      <div class="prompt" id="prompt"></div>
+      <div class="opts" id="opts"></div>
+      <div class="actions"><button class="btn" id="btn-next" disabled>ยืนยันคำตอบ ➜</button></div>
+      <div class="note">เลือกคำตอบแล้วกด “ยืนยันคำตอบ” · ยืนยันแล้วแก้ไม่ได้</div>
+    </div>
+  </section>
+
+  <!-- ========== RESULT ========== -->
+  <section class="screen" id="sc-result">
+    <div class="brand" style="margin-bottom:16px">
+      <div class="adv">ADVANCE</div>
+      <h1 style="font-size:2.3rem">VOCAB BEAT</h1>
+      <div class="by">ผลการสอบ SET 15–18</div>
+    </div>
+    <div class="card" id="result-card">
+      <div class="res-top">
+        <div class="res-name" id="r-name"></div>
+        <div class="res-sub" id="r-reason"></div>
+        <div class="ring" id="ring"><div><div><b id="r-score">0</b><br><span>/ 30 คะแนน</span></div></div></div>
+        <span class="grade" id="r-grade"></span>
+      </div>
+      <div class="breakdown" id="r-bd"></div>
+      <div class="meta">
+        <div><small>ส่งเมื่อ</small><span id="r-when"></span></div>
+        <div><small>เวลาที่ใช้</small><span id="r-used"></span></div>
+        <div><small>บันทึกการทุจริต</small><span id="r-vio"></span></div>
+        <div><small>รหัสยืนยันผล</small><span class="code" id="r-code"></span></div>
+      </div>
+      <div class="vlog" id="r-vlog" style="display:none"></div>
+      <div class="capture">📸 แคปหน้าจอนี้ส่งครู (ต้องเห็นชื่อ คะแนน และรหัสยืนยันผลครบ)</div>
+    </div>
+    <button class="teacher-link" id="btn-teacher2">สำหรับครู</button>
+  </section>
+</div>
+
+<!-- violation overlay -->
+<div class="overlay" id="ov-vio">
+  <div class="modal">
+    <div class="ico">🚨</div>
+    <h3 id="vio-title">ตรวจพบการออกจากหน้าสอบ</h3>
+    <p id="vio-msg"></p>
+    <button class="btn" id="btn-back">กลับไปทำข้อสอบ</button>
   </div>
+</div>
 
-  <!-- Modal ระบบหลังบ้าน Admin -->
-  <div id="adminModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-4xl w-full p-6 max-h-[90vh] flex flex-col">
-      <div class="flex justify-between items-center pb-4 border-b border-slate-800">
-        <h3 class="text-lg font-bold text-white">📊 ระบบหลังบ้านครูผู้สอน (Google Sheets Live Data)</h3>
-        <button onclick="closeAdminModal()" class="text-slate-400 hover:text-white text-xl">✕</button>
-      </div>
-
-      <!-- Admin Login -->
-      <div id="adminLoginBox" class="py-10 max-w-sm mx-auto w-full text-center space-y-4">
-        <p class="text-sm text-slate-300">กรุณากรอกรหัสผ่านผู้ดูแลระบบเพื่อดูคะแนนสอบ</p>
-        <input type="password" id="adminPassInput" placeholder="รหัสผ่าน (ค่าเริ่มต้น: admin1234)"
-          class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-center">
-        <button onclick="fetchAdminData()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2.5 rounded-xl">
-          เข้าสู่ระบบ
-        </button>
-      </div>
-
-      <!-- Admin Table -->
-      <div id="adminDataBox" class="hidden flex-grow overflow-hidden flex flex-col mt-4">
-        <div class="flex flex-wrap justify-between items-center gap-2 mb-3">
-          <span id="adminTotalCount" class="text-xs text-slate-400">ผู้เข้าสอบทั้งหมด: 0 คน</span>
-          <div class="flex gap-2">
-            <button onclick="fetchAdminData()" class="text-xs bg-slate-800 hover:bg-slate-700 text-white px-3 py-1.5 rounded-lg">
-              🔄 รีเฟรชข้อมูล
-            </button>
-            <button onclick="exportAdminCSV()" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-lg font-semibold">
-              📥 Export CSV
-            </button>
-          </div>
-        </div>
-
-        <div class="overflow-auto border border-slate-800 rounded-xl flex-grow">
-          <table class="w-full text-left text-xs text-slate-300">
-            <thead class="bg-slate-800 text-slate-200 sticky top-0">
-              <tr>
-                <th class="p-3">เวลาส่ง</th>
-                <th class="p-3">รหัส</th>
-                <th class="p-3">ชื่อ-นามสกุล</th>
-                <th class="p-3">ชั้น/เลขที่</th>
-                <th class="p-3">คะแนน</th>
-                <th class="p-3">สลับจอ</th>
-                <th class="p-3">สถานะ</th>
-              </tr>
-            </thead>
-            <tbody id="adminTableBody" class="divide-y divide-slate-800">
-              <!-- Data rows -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+<!-- confirm-start overlay -->
+<div class="overlay" id="ov-confirm">
+  <div class="modal calm">
+    <div class="ico">🎧</div>
+    <h3>พร้อมเริ่มสอบหรือยัง?</h3>
+    <p id="confirm-msg"></p>
+    <button class="btn" id="btn-go">เริ่มเลย</button>
+    <button class="btn ghost" id="btn-cancel">แก้ชื่อ</button>
   </div>
+</div>
 
-  <script>
-    // ==========================================
-    // คลังข้อสอบ 30 ข้อ (SET 15 - 18) อ้างอิงจากเอกสาร ADVANCE VOCAB BEAT
-    // ==========================================
-    const QUESTION_BANK = [
-      // --- SET 15 (7 ข้อ) ---
-      { set: "SET 15", q: "คำว่า 'cautious' มีความหมายตรงกับข้อใด?", options: ["รอบคอบ ระมัดระวัง", "โกรธจัด", "เสี่ยงอันตราย", "เศร้าสลด"], ans: "รอบคอบ ระมัดระวัง" },
-      { set: "SET 15", q: "คำว่า 'adverse' มีความหมายว่าอย่างไร?", options: ["ตรงกันข้าม / ข้อเสียเปรียบ", "เป็นประโยชน์อย่างยิ่ง", "แนบติด", "เฉียบพลัน"], ans: "ตรงกันข้าม / ข้อเสียเปรียบ" },
-      { set: "SET 15", q: "คำศัพท์ใดแปลว่า 'ควันหลง / ผลที่ตามมา'?", options: ["aftermath", "affection", "accusation", "abstract"], ans: "aftermath" },
-      { set: "SET 15", q: "คำว่า 'accomplish' มีความหมายตรงกับข้อใด?", options: ["ทำสำเร็จ บรรลุผล", "ให้อำนาจ", "กล่าวโทษ", "ยินยอม"], ans: "ทำสำเร็จ บรรลุผล" },
-      { set: "SET 15", q: "คำว่า 'consent' ตรงกับความหมายภาษาไทยในข้อใด?", options: ["ยินยอม / อนุญาต", "ให้พร", "รอยแตก", "นิรนาม"], ans: "ยินยอม / อนุญาต" },
-      { set: "SET 15", q: "The patient suffered from ________ abdominal pain and had to be rushed to the hospital immediately.", options: ["acute", "anonymous", "abstract", "acid"], ans: "acute" },
-      { set: "SET 15", q: "Only the manager has the right to ________ payments over 50,000 baht.", options: ["authorize", "adhere", "mourn", "assert"], ans: "authorize" },
+<!-- teacher overlay -->
+<div class="overlay" id="ov-teacher">
+  <div class="modal calm" style="text-align:left">
+    <h3 style="text-align:center">🔑 เมนูครู</h3>
+    <div id="t-lock">
+      <div class="field"><label>PIN ครู</label><input id="t-pin" type="password" inputmode="numeric" maxlength="8" autocomplete="off"></div>
+      <div class="err" id="t-err"></div>
+      <button class="btn" id="t-enter">เข้าสู่เมนู</button>
+    </div>
+    <div id="t-menu" style="display:none">
+      <p style="margin-bottom:10px;font-size:.9rem">ตรวจรหัสยืนยันผลจากภาพที่นักเรียนส่งมา</p>
+      <div class="field"><label>ชื่อ-นามสกุล (ตามภาพ)</label><input id="v-name" autocomplete="off"></div>
+      <div class="meta" style="margin-bottom:10px">
+        <div class="field" style="margin:0"><label>คะแนน</label><input id="v-score" inputmode="numeric" autocomplete="off"></div>
+        <div class="field" style="margin:0"><label>ทุจริต (ครั้ง)</label><input id="v-vio" inputmode="numeric" autocomplete="off"></div>
+      </div>
+      <div class="field"><label>รหัสยืนยันผล</label><input id="v-code" autocomplete="off" style="text-transform:uppercase"></div>
+      <div class="err" id="v-out" style="font-weight:800"></div>
+      <button class="btn gold" id="v-check">ตรวจรหัส</button>
+      <hr style="border:0;border-top:1px solid var(--line);margin:16px 0">
+      <button class="btn ghost" id="t-reset">🔓 ปลดล็อกเครื่องนี้ (ให้สอบใหม่)</button>
+    </div>
+    <button class="btn ghost" id="t-close" style="margin-top:10px">ปิด</button>
+  </div>
+</div>
 
-      // --- SET 16 (8 ข้อ) ---
-      { set: "SET 16", q: "คำว่า 'allocate' มีความหมายตรงกับข้อใด?", options: ["จัดสรร แบ่งสรร", "ประกอบกัน", "ดูหมิ่น", "ยอมทำตาม"], ans: "จัดสรร แบ่งสรร" },
-      { set: "SET 16", q: "คำว่า 'arid' และ 'drought' เกี่ยวข้องกับความหมายใด?", options: ["แห้งแล้ง / ภัยแล้ง", "ไม่เป็นระเบียบ", "สื่อสารชัดเจน", "ไม่น่าเชื่อ"], ans: "แห้งแล้ง / ภัยแล้ง" },
-      { set: "SET 16", q: "คำศัพท์ใดแปลว่า 'ไม่น่าเชื่อ / ไร้สาระ'?", options: ["absurd", "adequate", "affordable", "approximate"], ans: "absurd" },
-      { set: "SET 16", q: "คำว่า 'comply' มีความหมายว่าอย่างไร?", options: ["ยอมทำตาม ปฏิบัติตาม", "เอาเปรียบ", "คุกรุ่น", "แต่งตั้ง"], ans: "ยอมทำตาม ปฏิบัติตาม" },
-      { set: "SET 16", q: "คำว่า 'articulate' มีความหมายตรงกับข้อใด?", options: ["สื่อสารชัดเจน พูดฉะฉาน", "เรียงเป็นเส้นตรง", "การฝึกงาน", "การนำมาใช้"], ans: "สื่อสารชัดเจน พูดฉะฉาน" },
-      { set: "SET 16", q: "All visitors must ________ with the safety regulations inside the laboratory.", options: ["comply", "insult", "smolder", "exploit"], ans: "comply" },
-      { set: "SET 16", q: "The company launched a new line of ________ laptops designed for university students.", options: ["affordable", "disorganized", "disabled", "absurd"], ans: "affordable" },
-      { set: "SET 16", q: "She is a strong ________ for animal rights and environmental protection.", options: ["advocate", "anchor", "alignment", "apprenticeship"], ans: "advocate" },
+<div class="toast" id="toast"></div>
 
-      // --- SET 17 (7 ข้อ) ---
-      { set: "SET 17", q: "คำว่า 'extravagance' มีความหมายตรงกับข้อใด?", options: ["ความฟุ่มเฟือย สิ้นเปลือง", "ความอดกลั้น", "ความเอื้อเฟื้อ", "ความมั่นคง"], ans: "ความฟุ่มเฟือย สิ้นเปลือง" },
-      { set: "SET 17", q: "คำว่า 'abundant' มีความหมายว่าอย่างไร?", options: ["มากมาย อุดมสมบูรณ์", "มีพิษ", "ทุจริต", "เฉียบแหลม"], ans: "มากมาย อุดมสมบูรณ์" },
-      { set: "SET 17", q: "คำศัพท์ใดแปลว่า 'ให้การ (เป็นพยานในศาล)'?", options: ["testify", "utilize", "resign", "arrest"], ans: "testify" },
-      { set: "SET 17", q: "คำว่า 'valid' มีความหมายตรงกับข้อใด?", options: ["ใช้ได้ตามกฎหมาย / มีเหตุผล", "โดยสมัครใจ", "ตามลำดับ", "มีชีวิตชีวา"], ans: "ใช้ได้ตามกฎหมาย / มีเหตุผล" },
-      { set: "SET 17", q: "The minister decided to ________ after being accused of financial corruption.", options: ["resign", "cope", "handle", "utilize"], ans: "resign" },
-      { set: "SET 17", q: "Thai people are well known around the world for their warmth and ________ toward tourists.", options: ["hospitality", "accusation", "crisis", "tissue"], ans: "hospitality" },
-      { set: "SET 17", q: "Tom and Jerry won first and second prizes ________ in the national science competition.", options: ["respectively", "voluntarily", "ultimately", "subtly"], ans: "respectively" },
+<script>
+(function(){
+'use strict';
+/* ================= CONFIG (ครูแก้ได้) ================= */
+var CONFIG = {
+  TIME_LIMIT_MIN: 30,     // เวลาสอบ (นาที)
+  MAX_VIOLATIONS: 3,      // ทุจริตครบกี่ครั้งส่งอัตโนมัติ
+  TEACHER_PIN: '7846',    // PIN เมนูครู
+  SALT: 'VB1518-TOAT-2026', // ใช้สร้างรหัสยืนยันผล (เปลี่ยนได้ แต่ต้องตรงกันตอนตรวจ)
+  STORE_KEY: 'vb_adv_1518_exam_v1'
+};
 
-      // --- SET 18 (8 ข้อ) ---
-      { set: "SET 18", q: "คำว่า 'compensate' มีความหมายตรงกับข้อใด?", options: ["ชดเชย ชดใช้", "กีดกัน", "ทำลายล้าง", "กักขัง"], ans: "ชดเชย ชดใช้" },
-      { set: "SET 18", q: "คำว่า 'defendant' ในทางกฎหมายหมายถึงใคร?", options: ["จำเลย", "พันธมิตร", "ผู้วินิจฉัย", "ผู้รับเลี้ยง"], ans: "จำเลย" },
-      { set: "SET 18", q: "คำศัพท์ใดแปลว่า 'เปิดโปง / เปิดเผยข้อมูล'?", options: ["disclose", "devise", "detain", "deprive"], ans: "disclose" },
-      { set: "SET 18", q: "คำว่า 'coincide' มีความหมายตรงกับข้อใด?", options: ["เกิดขึ้นพร้อมกัน / ตรงกัน", "เข้าถึงได้", "สืบให้แน่ใจ", "ประกอบกัน"], ans: "เกิดขึ้นพร้อมกัน / ตรงกัน" },
-      { set: "SET 18", q: "คำว่า 'suburban' ตรงกับความหมายใด?", options: ["ชานเมือง", "เบี้ยเลี้ยง", "ความอยากอาหาร", "การขนส่ง"], ans: "ชานเมือง" },
-      { set: "SET 18", q: "The police decided to ________ the suspect for further questioning.", options: ["detain", "diagnose", "assemble", "beware"], ans: "detain" },
-      { set: "SET 18", q: "A good leader must be ________ when facing an urgent emergency.", options: ["decisive", "allergic", "initial", "accessible"], ans: "decisive" },
-      { set: "SET 18", q: "Doctors use advanced blood tests to ________ rare diseases at an early stage.", options: ["diagnose", "devastate", "discriminate", "deprive"], ans: "diagnose" }
-    ];
+/* ================= QUESTION BANK: SET 15–18 (30 ข้อ) ================= */
+// t: 'en' = ศัพท์อังกฤษ → ความหมายไทย, 'th' = ไทย → ศัพท์อังกฤษ, 'ctx' = เติมคำในประโยค
+// a = คำตอบถูกเสมออยู่ช่องแรก (ระบบสลับให้อัตโนมัติ)
+var BANK = [
+ // ---- SET 15 ----
+ {s:15,t:'en', q:'cautious', o:['รอบคอบ','โกรธมาก','นิรนาม','เฉียบพลัน']},
+ {s:15,t:'th', q:'นิรนาม', o:['anonymous','cautious','abstract','acute']},
+ {s:15,t:'ctx',q:'The patient was rushed to hospital with ___ pain in his stomach. It started suddenly an hour ago.', o:['acute','abstract','anonymous','beneficial']},
+ {s:15,t:'ctx',q:'Students cannot join the school trip without their parents’ ___.', o:['consent','fracture','aftermath','canvas']},
+ {s:15,t:'en', q:'affection', o:['ความรักใคร่','ความเศร้าสลด','รอยแตก','การกล่าวโทษ']},
+ {s:15,t:'th', q:'ความยากจน', o:['poverty','compound','activist','mourning']},
+ {s:15,t:'ctx',q:'The young ___ organized a peaceful protest to protect the forest.', o:['activist','canvas','compound','acid']},
+ {s:15,t:'en', q:'beneficial', o:['เป็นประโยชน์','ตรงกันข้าม','ให้อำนาจ','ยืนยัน']},
+ // ---- SET 16 ----
+ {s:16,t:'en', q:'affordable', o:['ไม่แพง','เพียงพอ','ใกล้เคียง','ไม่น่าเชื่อ']},
+ {s:16,t:'th', q:'ดูหมิ่น', o:['insult','perceive','exert','comply']},
+ {s:16,t:'ctx',q:'Many farmers lost their crops during the long ___. There was no rain for five months.', o:['drought','anchor','alignment','apprenticeship']},
+ {s:16,t:'ctx',q:'All visitors must ___ with the safety rules inside the factory.', o:['comply','allocate','perceive','appoint']},
+ {s:16,t:'en', q:'articulate', o:['สื่อสารชัดเจน','ประกอบกัน','แต่งตั้ง','สนับสนุน']},
+ {s:16,t:'th', q:'ไม่เป็นระเบียบ', o:['disorganized','disabled','adequate','absurd']},
+ {s:16,t:'ctx',q:'The school board will ___ a new principal next month.', o:['appoint','smolder','perceive','exert']},
+ // ---- SET 17 ----
+ {s:17,t:'en', q:'resign', o:['ลาออก','จับกุม','ให้การ','รับมือ']},
+ {s:17,t:'th', q:'มีพิษ', o:['toxic','valid','subtle','vibrant']},
+ {s:17,t:'ctx',q:'The police ___ the man for stealing a car last night.', o:['arrested','testified','resigned','utilized']},
+ {s:17,t:'ctx',q:'Your passport is no longer ___. It expired last year.', o:['valid','vibrant','voluntary','abundant']},
+ {s:17,t:'en', q:'hospitality', o:['ความเอื้อเฟื้อ','ความมั่นคง','ความอดกลั้น','วิกฤติ']},
+ {s:17,t:'th', q:'ความเต็มใจ', o:['willingness','tolerance','stability','extravagance']},
+ {s:17,t:'ctx',q:'Tom and Ann finished first and second, ___.', o:['respectively','voluntary','corrupt','abundant']},
+ {s:17,t:'en', q:'abundant', o:['มากมาย','มีชีวิตชีวา','โดยสมัครใจ','ทุจริต']},
+ // ---- SET 18 ----
+ {s:18,t:'en', q:'devastate', o:['ทำลายล้าง','ชดเชย','วินิจฉัย','กักขัง']},
+ {s:18,t:'th', q:'จำเลย', o:['defendant','alliance','allowance','carriage']},
+ {s:18,t:'ctx',q:'I can’t eat peanuts because I am ___ to them.', o:['allergic','accessible','decisive','suburban']},
+ {s:18,t:'ctx',q:'The doctor needs to run more tests to ___ the disease.', o:['diagnose','disclose','coincide','deprive']},
+ {s:18,t:'en', q:'suburban', o:['ชานเมือง','ในตอนแรก','เบี้ยเลี้ยง','ความอยากอาหาร']},
+ {s:18,t:'th', q:'เกิดขึ้นพร้อมกัน', o:['coincide','compensate','ascertain','discriminate']},
+ {s:18,t:'ctx',q:'The company will ___ the workers for the extra hours they worked.', o:['compensate','detain','devise','beware']}
+];
+var TYPE_LABEL = {
+  en:'เลือกความหมายภาษาไทยที่ถูกต้อง',
+  th:'เลือกคำศัพท์ภาษาอังกฤษที่ตรงกับความหมาย',
+  ctx:'เลือกคำที่เหมาะสมเติมในช่องว่าง'
+};
+var SET_COLOR = {15:'var(--s15)',16:'var(--s16)',17:'var(--s17)',18:'var(--s18)'};
 
-    // ตัวแปรสถานะการสอบ
-    let examQuestions = [];
-    let userAnswers = {};
-    let currentIdx = 0;
-    let warningCount = 0;
-    let cheatLogs = [];
-    let timeLeft = 25 * 60; // 25 นาที
-    let timerInterval = null;
-    let isExamActive = false;
-    let isSubmitting = false;
-    let studentInfo = {};
-    let cachedAdminRecords = [];
+/* ================= HELPERS ================= */
+function $(id){return document.getElementById(id)}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function hash32(str){var h=2166136261>>>0;for(var i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619)>>>0}return h>>>0}
+function rng(seed){var a=seed>>>0;return function(){a=(a+0x6D2B79F5)>>>0;var t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296}}
+function shuffle(arr,r){var a=arr.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(r()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function normName(s){return String(s||'').replace(/\s+/g,' ').trim()}
+function pad(n){return (n<10?'0':'')+n}
+function fmtClock(ms){ms=Math.max(0,ms);var s=Math.ceil(ms/1000);return pad(Math.floor(s/60))+':'+pad(s%60)}
+function fmtDur(ms){var s=Math.round(ms/1000);return Math.floor(s/60)+' นาที '+(s%60)+' วินาที'}
+function fmtTime(ts){var d=new Date(ts);return pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+(d.getFullYear()+543)+' '+pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds())}
+function makeCode(name,score,vio){
+  var h=hash32(CONFIG.SALT+'|'+normName(name).toLowerCase()+'|'+score+'|'+vio);
+  var A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',out='';
+  for(var i=0;i<6;i++){out+=A[(h>>>(i*5))&31]}
+  return out;
+}
+var toastT;function toast(m){var t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('on')},2400)}
 
-    const STORAGE_KEY = 'vocab_beat_15_18_state';
+/* ================= STATE ================= */
+var S=null; // {fname,lname,order:[{bi,opts}],idx,answers:[],vio:[],start,deadline,finished,finishedAt,score,reason}
+function save(){try{localStorage.setItem(CONFIG.STORE_KEY,JSON.stringify(S))}catch(e){}}
+function load(){try{var s=JSON.parse(localStorage.getItem(CONFIG.STORE_KEY)||'null');return s&&s.order?s:null}catch(e){return null}}
+function fullName(){return S?normName(S.fname+' '+S.lname):''}
 
-    // สุ่มอาเรย์ (Fisher-Yates Shuffle)
-    function shuffleArray(arr) {
-      const copy = [...arr];
-      for (let i = copy.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [copy[i], copy[j]] = [copy[j], copy[i]];
-      }
-      return copy;
-    }
+function buildExam(fname,lname){
+  var seed=hash32(normName(fname+' '+lname).toLowerCase()+'|'+Date.now());
+  var r=rng(seed);
+  var idxs=shuffle(BANK.map(function(_,i){return i}),r);
+  return idxs.map(function(bi){return {bi:bi,opts:shuffle([0,1,2,3],r)}});
+}
 
-    // กู้คืนสถานะหากนักเรียนแอบ Refresh หน้าเว็บระหว่างสอบ
-    window.addEventListener('DOMContentLoaded', () => {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        try {
-          const state = JSON.parse(saved);
-          if (state.isExamActive && state.examQuestions && state.examQuestions.length === 30) {
-            studentInfo = state.studentInfo;
-            examQuestions = state.examQuestions;
-            userAnswers = state.userAnswers || {};
-            currentIdx = state.currentIdx || 0;
-            timeLeft = state.timeLeft || 1200;
-            warningCount = (state.warningCount || 0) + 1;
-            cheatLogs = state.cheatLogs || [];
-            cheatLogs.push(`รีเฟรชหน้าจอ (${new Date().toLocaleTimeString('th-TH')})`);
+/* ================= SCREENS ================= */
+function show(id){['sc-reg','sc-quiz','sc-result'].forEach(function(s){$(s).classList.toggle('on',s===id)});window.scrollTo(0,0)}
+var inExam=false;
 
-            startExamUI();
-            if (warningCount >= 3) {
-              forceSubmitCheat('รีเฟรชหน้าจอครบกำหนด 3 ครั้ง');
-            } else {
-              triggerCheatWarning('ตรวจพบการรีเฟรชหน้าเว็บระหว่างทำข้อสอบ!');
-            }
-          }
-        } catch (e) {
-          localStorage.removeItem(STORAGE_KEY);
-        }
-      }
-    });
+/* ---------- register ---------- */
+$('r-time').textContent=CONFIG.TIME_LIMIT_MIN;
+$('r-max').textContent=CONFIG.MAX_VIOLATIONS;
+$('agree').addEventListener('change',function(){$('btn-start').disabled=!this.checked});
+var NAME_RE=/^[A-Za-z฀-๿][A-Za-z฀-๿ .'-]*$/;
+$('btn-start').addEventListener('click',function(){
+  var f=normName($('fname').value),l=normName($('lname').value),e=$('reg-err');
+  if(f.length<2||l.length<2){e.textContent='กรุณากรอกชื่อและนามสกุลให้ครบ (อย่างน้อย 2 ตัวอักษร)';return}
+  if(!NAME_RE.test(f)||!NAME_RE.test(l)){e.textContent='ชื่อ-นามสกุลใช้ได้เฉพาะตัวอักษรไทยหรืออังกฤษ';return}
+  e.textContent='';
+  $('confirm-msg').innerHTML='ชื่อผู้สอบ: <b>'+esc(f+' '+l)+'</b><br>เมื่อกดเริ่ม เวลา '+CONFIG.TIME_LIMIT_MIN+' นาทีจะเริ่มนับทันที และเปลี่ยนชื่อไม่ได้อีก';
+  $('ov-confirm').classList.add('on');
+});
+$('btn-cancel').addEventListener('click',function(){$('ov-confirm').classList.remove('on')});
+var starting=false;
+$('btn-go').addEventListener('click',function(){
+  if(starting)return;starting=true;
+  var f=normName($('fname').value),l=normName($('lname').value),now=Date.now();
+  S={fname:f,lname:l,order:buildExam(f,l),idx:0,answers:[],vio:[],start:now,deadline:now+CONFIG.TIME_LIMIT_MIN*60000,finished:false};
+  save();
+  $('ov-confirm').classList.remove('on');
+  enterExam();
+});
 
-    function saveStateToLocal() {
-      if (!isExamActive) return;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({
-        isExamActive,
-        studentInfo,
-        examQuestions,
-        userAnswers,
-        currentIdx,
-        timeLeft,
-        warningCount,
-        cheatLogs
-      }));
-    }
+/* ---------- exam ---------- */
+var tick=null, chosen=-1;
+function enterExam(){
+  inExam=true;
+  $('who').textContent='👤 '+fullName();
+  setWatermark();
+  try{history.pushState({exam:1},'',location.href)}catch(e){}
+  show('sc-quiz');
+  renderQ();
+  updateVio();
+  clearInterval(tick);tick=setInterval(updateTimer,500);updateTimer();
+}
+function renderQ(){
+  if(S.idx>=S.order.length){finish('ทำครบทุกข้อ');return}
+  var it=S.order[S.idx],q=BANK[it.bi];
+  chosen=-1;$('btn-next').disabled=true;
+  $('qn').textContent=S.idx+1;
+  var qs=$('qset');qs.textContent='SET '+q.s;qs.style.color=SET_COLOR[q.s];
+  $('qtype').textContent=TYPE_LABEL[q.t];
+  var p;
+  if(q.t==='ctx'){p=esc(q.q).replace('___','<span class="blank"></span>')}
+  else if(q.t==='en'){p='คำว่า <span class="word" lang="en">'+esc(q.q)+'</span> แปลว่าอะไร?'}
+  else{p='<span class="word">'+esc(q.q)+'</span><br>ตรงกับคำศัพท์ใด?'}
+  $('prompt').innerHTML=p;
+  var keys=['A','B','C','D'];
+  $('opts').innerHTML=it.opts.map(function(oi,k){
+    return '<button class="opt" data-k="'+k+'"><span class="k">'+keys[k]+'</span><span>'+esc(q.o[oi])+'</span></button>';
+  }).join('');
+  $('prog').style.width=(S.idx/S.order.length*100)+'%';
+}
+$('opts').addEventListener('click',function(ev){
+  var b=ev.target.closest('.opt');if(!b||!inExam)return;
+  chosen=+b.getAttribute('data-k');
+  Array.prototype.forEach.call(this.children,function(c){c.classList.toggle('sel',c===b)});
+  $('btn-next').disabled=false;
+});
+var lastNext=0;
+$('btn-next').addEventListener('click',function(){
+  if(!inExam||chosen<0||Date.now()-lastNext<250)return;
+  lastNext=Date.now();
+  var it=S.order[S.idx];
+  S.answers[S.idx]=it.opts[chosen]; // index ใน q.o (0 = ถูก)
+  S.idx++;save();
+  if(S.idx>=S.order.length)finish('ทำครบทุกข้อ');else renderQ();
+});
+function updateTimer(){
+  if(!inExam)return;
+  var left=S.deadline-Date.now();
+  var t=$('timer');t.textContent='⏱ '+fmtClock(left);
+  t.classList.toggle('low',left<=5*60000);
+  if(left<=0)finish('หมดเวลา — ส่งอัตโนมัติ');
+}
 
-    // เริ่มต้นเข้าสอบ
-    function handleStartExam(e) {
-      e.preventDefault();
-      const fullName = document.getElementById('fullName').value.trim();
-      const studentId = document.getElementById('studentId').value.trim();
-      const classroom = document.getElementById('classroom').value.trim();
+/* ---------- anti-cheat ---------- */
+var lastVio=0;
+function violation(kind){
+  if(!inExam||!S||S.finished)return;
+  var now=Date.now();
+  if(now-lastVio<1500)return; // กันนับซ้ำ (blur+hidden พร้อมกัน)
+  lastVio=now;
+  S.vio.push({k:kind,t:now,q:S.idx+1});save();
+  updateVio();
+  var n=S.vio.length,max=CONFIG.MAX_VIOLATIONS;
+  if(n>=max){finish('ทุจริตครบ '+max+' ครั้ง — ส่งอัตโนมัติ');return}
+  $('vio-title').textContent='ตรวจพบ: '+kind;
+  $('vio-msg').innerHTML='บันทึกการทุจริตครั้งที่ <b>'+n+'/'+max+'</b> แล้ว<br>ครบ '+max+' ครั้ง ระบบจะส่งข้อสอบทันที';
+  $('ov-vio').classList.add('on');
+}
+function updateVio(){
+  var p=$('vio-pill'),n=S?S.vio.length:0;
+  p.textContent='⚠ '+n+'/'+CONFIG.MAX_VIOLATIONS;
+  p.classList.toggle('hot',n>0);
+}
+$('btn-back').addEventListener('click',function(){$('ov-vio').classList.remove('on')});
 
-      const btn = document.getElementById('startBtn');
-      btn.disabled = true;
-      btn.innerText = 'กำลังตรวจสอบรายชื่อ...';
+document.addEventListener('visibilitychange',function(){if(document.hidden)violation('ออกจากหน้าสอบ / สลับแอป')});
+window.addEventListener('blur',function(){
+  // Chromebook: คลิกไปหน้าต่างอื่น / เปิด split view
+  setTimeout(function(){if(!document.hasFocus()&&!document.hidden)violation('สลับหน้าต่าง')},300);
+});
+window.addEventListener('pagehide',function(){if(inExam)violation('ปิด/รีเฟรชหน้าสอบ')});
+window.addEventListener('beforeunload',function(e){if(inExam){e.preventDefault();e.returnValue=''}});
+window.addEventListener('popstate',function(){
+  if(inExam){try{history.pushState({exam:1},'',location.href)}catch(e){} toast('ไม่สามารถย้อนกลับระหว่างสอบได้')}
+});
+['copy','cut','paste'].forEach(function(ev){
+  document.addEventListener(ev,function(e){if(inExam){e.preventDefault();violation('คัดลอก/วางข้อความ')}});
+});
+document.addEventListener('contextmenu',function(e){e.preventDefault();if(inExam)toast('ปิดการใช้งานเมนูคลิกขวาระหว่างสอบ')});
+document.addEventListener('dragstart',function(e){e.preventDefault()});
+document.addEventListener('selectstart',function(e){if(inExam&&!/INPUT|TEXTAREA/.test(e.target.tagName))e.preventDefault()});
+document.addEventListener('keydown',function(e){
+  if(!inExam)return;
+  var k=(e.key||'').toLowerCase(),mod=e.ctrlKey||e.metaKey;
+  if(k==='f12'||(mod&&e.shiftKey&&['i','j','c','s'].indexOf(k)>=0)){e.preventDefault();violation('เปิดเครื่องมือนักพัฒนา');return}
+  if(mod&&['c','x','v','a','p','s','u','f','g'].indexOf(k)>=0){e.preventDefault();violation('ใช้คีย์ลัดต้องห้าม (Ctrl/⌘+'+k.toUpperCase()+')');return}
+  if(k==='printscreen'||(e.metaKey&&e.shiftKey&&['3','4','5'].indexOf(k)>=0)){e.preventDefault();violation('จับภาพหน้าจอ');return}
+  if(k==='f5'||(mod&&k==='r')){e.preventDefault();toast('ห้ามรีเฟรชระหว่างสอบ');return}
+});
+document.addEventListener('keyup',function(e){if(inExam&&(e.key||'').toLowerCase()==='printscreen'){violation('จับภาพหน้าจอ');try{navigator.clipboard&&navigator.clipboard.writeText('')}catch(x){}}});
 
-      // ตรวจสอบว่าเคยส่งข้อสอบใน Google Sheets แล้วหรือยัง
-      if (typeof google !== 'undefined' && google.script) {
-        google.script.run
-          .withSuccessHandler((res) => {
-            if (res && res.exists) {
-              alert('⚠️ พบข้อมูลชื่อหรือรหัสนักเรียนนี้ส่งข้อสอบไปแล้ว ไม่สามารถสอบซ้ำได้');
-              btn.disabled = false;
-              btn.innerText = 'เริ่มทำข้อสอบ (เข้าสู่โหมดเต็มจอ)';
-              return;
-            }
-            initNewExam(fullName, studentId, classroom);
-          })
-          .withFailureHandler(() => {
-            initNewExam(fullName, studentId, classroom);
-          })
-          .checkDuplicateStudent(studentId, fullName);
-      } else {
-        initNewExam(fullName, studentId, classroom);
-      }
-    }
+// กันแปลภาษา: แอปนี้ไม่เคยแก้ text node เดิม (แทนที่ innerHTML ทั้งก้อนเสมอ) — ถ้ามี characterData เปลี่ยน = ตัวแปลภาษา
+try{
+  new MutationObserver(function(muts){
+    for(var i=0;i<muts.length;i++){if(muts[i].type==='characterData'){violation('ใช้ตัวแปลภาษา');return}}
+  }).observe($('quiz'),{characterData:true,subtree:true});
+  new MutationObserver(function(){
+    var c=document.documentElement.className||'';
+    if(/translated-(ltr|rtl)/.test(c))violation('ใช้ตัวแปลภาษา');
+  }).observe(document.documentElement,{attributes:true,attributeFilter:['class','lang']});
+}catch(e){}
 
-    function initNewExam(fullName, studentId, classroom) {
-      studentInfo = { fullName, studentId, classroom };
-      // สุ่มลำดับข้อสอบ 30 ข้อ และสุ่มตัวเลือก A-D ทุกข้อ
-      examQuestions = shuffleArray(QUESTION_BANK).map((item, idx) => ({
-        id: idx,
-        set: item.set,
-        q: item.q,
-        options: shuffleArray(item.options),
-        ans: item.ans
-      }));
-      userAnswers = {};
-      currentIdx = 0;
-      warningCount = 0;
-      cheatLogs = [];
-      timeLeft = 25 * 60;
+function setWatermark(){
+  var line=(fullName()+'  ·  VOCAB BEAT 15–18  ·  ')+' ';
+  var txt='';for(var i=0;i<220;i++)txt+=line;
+  $('wm').textContent=txt;$('wm').classList.add('on');
+}
 
-      requestFullscreenSafe();
-      startExamUI();
-      saveStateToLocal();
-    }
+/* ---------- finish & result ---------- */
+function finish(reason){
+  if(!S||S.finished)return;
+  inExam=false;clearInterval(tick);
+  $('ov-vio').classList.remove('on');
+  var score=0;
+  S.order.forEach(function(it,i){if(S.answers[i]===0)score++});
+  S.finished=true;S.finishedAt=Math.min(Date.now(),S.deadline);S.score=score;S.reason=reason;
+  save();
+  renderResult();
+}
+function renderResult(){
+  show('sc-result');setWatermark();
+  var total=S.order.length,score=S.score,vio=S.vio.length,pct=Math.round(score/total*100);
+  $('r-name').textContent=fullName();
+  $('r-reason').textContent=S.reason||'';
+  $('r-score').textContent=score;
+  $('ring').style.setProperty('--p',pct);
+  var g=$('r-grade'),G=pct>=80?['ดีเยี่ยม','var(--green)']:pct>=70?['ดีมาก','var(--cyan)']:pct>=60?['ดี','var(--gold)']:pct>=50?['ผ่าน','#ffa94d']:['ต้องปรับปรุง','var(--red)'];
+  g.textContent=G[0]+' · '+pct+'%';g.style.background=G[1];g.style.color='#111';
+  var per={15:[0,0],16:[0,0],17:[0,0],18:[0,0]};
+  S.order.forEach(function(it,i){var s=BANK[it.bi].s;per[s][1]++;if(S.answers[i]===0)per[s][0]++});
+  $('r-bd').innerHTML=[15,16,17,18].map(function(s){
+    return '<div class="bd"><div class="t" style="color:'+SET_COLOR[s]+'">SET '+s+'</div><div class="v">'+per[s][0]+'/'+per[s][1]+'</div></div>';
+  }).join('');
+  $('r-when').textContent=fmtTime(S.finishedAt);
+  $('r-used').textContent=fmtDur(S.finishedAt-S.start);
+  var rv=$('r-vio');rv.textContent=vio+' ครั้ง';rv.classList.toggle('flag',vio>0);
+  $('r-code').textContent=makeCode(fullName(),score,vio);
+  var lg=$('r-vlog');
+  if(vio){lg.style.display='block';lg.innerHTML=S.vio.map(function(v,i){var d=new Date(v.t);return '<div>#'+(i+1)+' '+pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds())+' · ข้อ '+v.q+' · '+esc(v.k)+'</div>'}).join('')}
+  else lg.style.display='none';
+}
 
-    function startExamUI() {
-      isExamActive = true;
-      document.getElementById('loginSection').classList.add('hidden');
-      document.getElementById('adminBtn').classList.add('hidden');
-      document.getElementById('examSection').classList.remove('hidden');
+/* ---------- teacher ---------- */
+function openTeacher(){$('t-lock').style.display='';$('t-menu').style.display='none';$('t-pin').value='';$('t-err').textContent='';$('v-out').textContent='';$('ov-teacher').classList.add('on')}
+$('btn-teacher').addEventListener('click',openTeacher);
+$('btn-teacher2').addEventListener('click',openTeacher);
+$('t-close').addEventListener('click',function(){$('ov-teacher').classList.remove('on')});
+$('t-enter').addEventListener('click',function(){
+  if($('t-pin').value===CONFIG.TEACHER_PIN){$('t-lock').style.display='none';$('t-menu').style.display=''}
+  else $('t-err').textContent='PIN ไม่ถูกต้อง';
+});
+$('v-check').addEventListener('click',function(){
+  var n=$('v-name').value,s=parseInt($('v-score').value,10),v=parseInt($('v-vio').value,10),c=normName($('v-code').value).toUpperCase(),o=$('v-out');
+  if(!normName(n)||isNaN(s)||isNaN(v)||!c){o.style.color='var(--gold)';o.textContent='กรอกข้อมูลให้ครบ';return}
+  if(makeCode(n,s,v)===c){o.style.color='var(--green)';o.textContent='✅ รหัสถูกต้อง — ผลสอบเป็นของจริง'}
+  else{o.style.color='var(--red)';o.textContent='❌ รหัสไม่ตรง — ภาพอาจถูกแก้ไข หรือพิมพ์ข้อมูลไม่ตรงภาพ'}
+});
+$('t-reset').addEventListener('click',function(){
+  if(!confirm('ลบผลสอบ/สถานะในเครื่องนี้ เพื่อให้นักเรียนสอบใหม่?'))return;
+  try{localStorage.removeItem(CONFIG.STORE_KEY)}catch(e){}
+  inExam=false;S=null;location.reload();
+});
 
-      document.getElementById('displayStudentName').innerText = studentInfo.fullName;
-      document.getElementById('displayStudentMeta').innerText = `รหัส: ${studentInfo.studentId} | ${studentInfo.classroom}`;
-      updateWarningUI();
+/* ================= BOOT ================= */
+S=load();
+if(S){
+  if(S.finished){renderResult()}
+  else if(Date.now()>=S.deadline){finish('หมดเวลา — ส่งอัตโนมัติ')}
+  else{
+    // กลับเข้ามาหลังรีเฟรช/ปิดแอป: เวลายังเดินต่อ + บันทึกทุจริต (ถ้ายังไม่ได้บันทึกตอนออก)
+    var lastV=S.vio.length?S.vio[S.vio.length-1].t:0;
+    enterExam();
+    if(Date.now()-lastV>4000){lastVio=0;violation('รีเฟรช/เปิดหน้าสอบใหม่')}
+  }
+}
 
-      renderQuestion();
-      renderGrid();
-      startTimer();
-    }
-
-    function requestFullscreenSafe() {
-      const el = document.documentElement;
-      if (el.requestFullscreen) {
-        el.requestFullscreen().catch(() => {});
-      } else if (el.webkitRequestFullscreen) {
-        el.webkitRequestFullscreen();
-      }
-    }
-
-    // นาฬิกานับถอยหลัง
-    function startTimer() {
-      clearInterval(timerInterval);
-      timerInterval = setInterval(() => {
-        if (!isExamActive) return;
-        timeLeft--;
-        const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-        const s = (timeLeft % 60).toString().padStart(2, '0');
-        document.getElementById('timerDisplay').innerText = `${m}:${s}`;
-
-        if (timeLeft % 5 === 0) saveStateToLocal();
-
-        if (timeLeft <= 0) {
-          clearInterval(timerInterval);
-          submitExam('หมดเวลาสอบ (ส่งอัตโนมัติ)');
-        }
-      }, 1000);
-    }
-
-    // แสดงข้อสอบปัจจุบัน
-    function renderQuestion() {
-      const qObj = examQuestions[currentIdx];
-      document.getElementById('questionSetBadge').innerText = qObj.set;
-      document.getElementById('currentQNum').innerText = currentIdx + 1;
-      document.getElementById('questionText').innerText = `${currentIdx + 1}. ${qObj.q}`;
-
-      const percent = ((currentIdx + 1) / examQuestions.length) * 100;
-      document.getElementById('progressBar').style.width = `${percent}%`;
-
-      const container = document.getElementById('optionsContainer');
-      container.innerHTML = '';
-      const labels = ['A', 'B', 'C', 'D'];
-
-      qObj.options.forEach((opt, i) => {
-        const isSelected = userAnswers[currentIdx] === opt;
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = `option-btn w-full text-left p-4 rounded-xl border flex items-center gap-3 ${
-          isSelected
-            ? 'bg-red-600/25 border-red-500 text-white font-semibold'
-            : 'bg-slate-800/70 border-slate-700 text-slate-200 hover:bg-slate-800'
-        }`;
-        btn.innerHTML = `
-          <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold ${
-            isSelected ? 'bg-red-600 text-white' : 'bg-slate-700 text-slate-300'
-          }">${labels[i]}</span>
-          <span>${opt}</span>
-        `;
-        btn.onclick = () => {
-          userAnswers[currentIdx] = opt;
-          saveStateToLocal();
-          renderQuestion();
-          renderGrid();
-        };
-        container.appendChild(btn);
-      });
-
-      document.getElementById('prevBtn').disabled = currentIdx === 0;
-      if (currentIdx === examQuestions.length - 1) {
-        document.getElementById('nextBtn').classList.add('hidden');
-        document.getElementById('submitExamBtn').classList.remove('hidden');
-      } else {
-        document.getElementById('nextBtn').classList.remove('hidden');
-        document.getElementById('submitExamBtn').classList.add('hidden');
-      }
-    }
-
-    function renderGrid() {
-      const grid = document.getElementById('questionGrid');
-      grid.innerHTML = '';
-      examQuestions.forEach((_, idx) => {
-        const answered = Boolean(userAnswers[idx]);
-        const isCurrent = idx === currentIdx;
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.innerText = idx + 1;
-        b.className = `py-1.5 rounded text-xs font-bold transition ${
-          isCurrent
-            ? 'ring-2 ring-white bg-red-600 text-white'
-            : answered
-              ? 'bg-emerald-600/80 text-white'
-              : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
-        }`;
-        b.onclick = () => {
-          currentIdx = idx;
-          renderQuestion();
-          renderGrid();
-        };
-        grid.appendChild(b);
-      });
-    }
-
-    function prevQuestion() {
-      if (currentIdx > 0) {
-        currentIdx--;
-        renderQuestion();
-        renderGrid();
-      }
-    }
-
-    function nextQuestion() {
-      if (currentIdx < examQuestions.length - 1) {
-        currentIdx++;
-        renderQuestion();
-        renderGrid();
-      }
-    }
-
-    // ==========================================
-    // ระบบป้องกันการทุจริต (Anti-Cheat Engine)
-    // ==========================================
-    document.addEventListener('visibilitychange', () => {
-      if (isExamActive && document.hidden) {
-        handleCheatEvent('สลับแท็บหรือพับหน้าจอเบราว์เซอร์');
-      }
-    });
-
-    window.addEventListener('blur', () => {
-      if (isExamActive) {
-        handleCheatEvent('คลิกออกนอกหน้าต่างข้อสอบ / เปิดโปรแกรมอื่น');
-      }
-    });
-
-    document.addEventListener('fullscreenchange', () => {
-      if (isExamActive && !document.fullscreenElement) {
-        handleCheatEvent('กดออกจากโหมดเต็มจอ (Exit Fullscreen)');
-      }
-    });
-
-    // ป้องกันคีย์ลัด Ctrl+C, Ctrl+V, F12, Ctrl+Shift+I, Alt+Tab
-    document.addEventListener('keydown', (e) => {
-      if (!isExamActive) return;
-      if (
-        e.key === 'F12' ||
-        (e.ctrlKey && ['c', 'v', 'x', 'u', 's', 'p', 'a'].includes(e.key.toLowerCase())) ||
-        (e.ctrlKey && e.shiftKey && ['i', 'j', 'c'].includes(e.key.toLowerCase()))
-      ) {
-        e.preventDefault();
-        playBeep();
-      }
-    });
-
-    let lastCheatTime = 0;
-    function handleCheatEvent(reason) {
-      if (!isExamActive || isSubmitting) return;
-      const now = Date.now();
-      if (now - lastCheatTime < 1500) return; // ป้องกันนับซ้ำในเสี้ยววินาทีเดียว
-      lastCheatTime = now;
-
-      warningCount++;
-      const timeStr = new Date().toLocaleTimeString('th-TH');
-      cheatLogs.push(`ครั้งที่ ${warningCount}: ${reason} (${timeStr})`);
-      updateWarningUI();
-      saveStateToLocal();
-      playBeep();
-
-      if (warningCount >= 3) {
-        forceSubmitCheat(reason);
-      } else {
-        triggerCheatWarning(reason);
-      }
-    }
-
-    function triggerCheatWarning(reason) {
-      document.getElementById('cheatReasonText').innerText = reason;
-      document.getElementById('modalStrikeNum').innerText = warningCount;
-      document.getElementById('cheatModal').classList.remove('hidden');
-    }
-
-    function resumeExamFullscreen() {
-      document.getElementById('cheatModal').classList.add('hidden');
-      requestFullscreenSafe();
-    }
-
-    function updateWarningUI() {
-      document.getElementById('warningCount').innerText = warningCount;
-      if (warningCount > 0) {
-        document.getElementById('strikeBadge').classList.replace('text-amber-400', 'text-red-400');
-        document.getElementById('strikeBadge').classList.add('border-red-500');
-      }
-    }
-
-    function playBeep() {
-      try {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = ctx.createOscillator();
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(520, ctx.currentTime);
-        osc.connect(ctx.destination);
-        osc.start();
-        osc.stop(ctx.currentTime + 0.25);
-      } catch (e) {}
-    }
-
-    function forceSubmitCheat(lastReason) {
-      document.getElementById('cheatModal').classList.add('hidden');
-      submitExam(`ถูกบังคับส่ง (ทุจริตครบ 3 ครั้ง: ${lastReason})`);
-    }
-
-    function confirmSubmit() {
-      const answeredCount = Object.keys(userAnswers).length;
-      const msg = answeredCount < 30
-        ? `คุณยังทำข้อสอบไม่ครบ (ทำแล้ว ${answeredCount}/30 ข้อ) ต้องการส่งกระดาษคำตอบเลยหรือไม่?`
-        : 'ยืนยันการส่งกระดาษคำตอบใช่หรือไม่?';
-      if (confirm(msg)) {
-        submitExam('ส่งปกติ');
-      }
-    }
-
-    // คำนวณคะแนนและส่งเข้า Google Sheets Backend
-    function submitExam(statusText) {
-      if (isSubmitting) return;
-      isSubmitting = true;
-      isExamActive = false;
-      clearInterval(timerInterval);
-      localStorage.removeItem(STORAGE_KEY);
-
-      if (document.fullscreenElement) {
-        document.exitFullscreen().catch(() => {});
-      }
-
-      let score = 0;
-      examQuestions.forEach((item, idx) => {
-        if (userAnswers[idx] === item.ans) score++;
-      });
-
-      document.getElementById('examSection').classList.add('hidden');
-      document.getElementById('resultSection').classList.remove('hidden');
-      document.getElementById('adminBtn').classList.remove('hidden');
-
-      document.getElementById('finalScore').innerText = score;
-      document.getElementById('resultStudentInfo').innerText =
-        `${studentInfo.fullName} (รหัส ${studentInfo.studentId} • ${studentInfo.classroom})`;
-
-      const statusBadge = document.getElementById('resultStatusBadge');
-      statusBadge.innerText = statusText;
-      if (statusText.includes('ทุจริต')) {
-        statusBadge.className = 'mt-2 text-xs font-semibold px-3 py-1 rounded-full bg-red-500/20 text-red-300';
-        document.getElementById('resultIcon').innerText = '⚠️';
-      }
-
-      renderReview();
-
-      const payload = {
-        studentId: studentInfo.studentId,
-        fullName: studentInfo.fullName,
-        classroom: studentInfo.classroom,
-        score: score,
-        total: examQuestions.length,
-        warnings: warningCount,
-        status: statusText,
-        logs: cheatLogs.length > 0 ? cheatLogs.join(' | ') : 'ไม่มีประวัติผิดปกติ'
-      };
-
-      if (typeof google !== 'undefined' && google.script) {
-        google.script.run
-          .withSuccessHandler((res) => {
-            document.getElementById('syncMessage').innerHTML =
-              `<span class="text-emerald-400">✓ บันทึกคะแนนลง Google Sheets เรียบร้อยแล้ว (${res.timestamp})</span>`;
-          })
-          .withFailureHandler((err) => {
-            document.getElementById('syncMessage').innerHTML =
-              `<span class="text-red-400">เกิดข้อผิดพลาดในการบันทึก: ${err}</span>`;
-          })
-          .submitExamResult(payload);
-      } else {
-        document.getElementById('syncMessage').innerText = 'โหมดทดสอบ (ไม่ได้เชื่อมต่อ Google Sheets)';
-      }
-    }
-
-    function renderReview() {
-      const container = document.getElementById('reviewContainer');
-      container.innerHTML = '';
-      examQuestions.forEach((item, idx) => {
-        const uAns = userAnswers[idx] || 'ไม่ได้ตอบ';
-        const isCorrect = uAns === item.ans;
-        const div = document.createElement('div');
-        div.className = `p-4 rounded-xl border ${
-          isCorrect ? 'bg-emerald-950/30 border-emerald-500/30' : 'bg-red-950/30 border-red-500/30'
-        }`;
-        div.innerHTML = `
-          <div class="flex justify-between text-xs mb-1">
-            <span class="font-bold text-slate-400">ข้อ ${idx + 1} (${item.set})</span>
-            <span class="${isCorrect ? 'text-emerald-400' : 'text-red-400'} font-bold">
-              ${isCorrect ? '✓ ถูกต้อง' : '✕ ผิด'}
-            </span>
-          </div>
-          <p class="text-sm text-white font-medium mb-2">${item.q}</p>
-          <p class="text-xs text-slate-300">คำตอบของคุณ: <span class="${isCorrect ? 'text-emerald-400' : 'text-red-400'} font-semibold">${uAns}</span></p>
-          ${!isCorrect ? `<p class="text-xs text-emerald-400 mt-0.5">เฉลยที่ถูกต้อง: <b>${item.ans}</b></p>` : ''}
-        `;
-        container.appendChild(div);
-      });
-    }
-
-    // ==========================================
-    // ระบบหลังบ้านครูผู้สอน (Admin Dashboard)
-    // ==========================================
-    function openAdminModal() {
-      document.getElementById('adminModal').classList.remove('hidden');
-    }
-    function closeAdminModal() {
-      document.getElementById('adminModal').classList.add('hidden');
-    }
-
-    function fetchAdminData() {
-      const pass = document.getElementById('adminPassInput').value;
-      if (typeof google === 'undefined' || !google.script) {
-        alert('ฟังก์ชันนี้ทำงานเมื่อ Deploy บน Google Apps Script แล้วเท่านั้น');
-        return;
-      }
-      google.script.run
-        .withSuccessHandler((res) => {
-          if (!res.success) {
-            alert(res.message);
-            return;
-          }
-          document.getElementById('adminLoginBox').classList.add('hidden');
-          document.getElementById('adminDataBox').classList.remove('hidden');
-          cachedAdminRecords = res.records || [];
-          renderAdminTable(cachedAdminRecords);
-        })
-        .getAdminResults(pass);
-    }
-
-    function renderAdminTable(records) {
-      document.getElementById('adminTotalCount').innerText = `ผู้เข้าสอบทั้งหมด: ${records.length} คน`;
-      const tbody = document.getElementById('adminTableBody');
-      tbody.innerHTML = '';
-
-      if (records.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-slate-500">ยังไม่มีข้อมูลผู้เข้าสอบ</td></tr>`;
-        return;
-      }
-
-      records.forEach((r) => {
-        const tr = document.createElement('tr');
-        tr.className = r.warnings >= 3 ? 'bg-red-950/30' : 'hover:bg-slate-800/50';
-        tr.innerHTML = `
-          <td class="p-3 whitespace-nowrap">${r.timestamp}</td>
-          <td class="p-3">${r.studentId}</td>
-          <td class="p-3 font-medium text-white">${r.fullName}</td>
-          <td class="p-3">${r.classroom}</td>
-          <td class="p-3 font-bold text-emerald-400">${r.score}/${r.total} (${r.percent})</td>
-          <td class="p-3 font-bold ${r.warnings > 0 ? 'text-red-400' : 'text-slate-400'}">${r.warnings} ครั้ง</td>
-          <td class="p-3">${r.status}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function exportAdminCSV() {
-      if (!cachedAdminRecords.length) return;
-      const headers = ['Timestamp', 'รหัสนักเรียน', 'ชื่อ-นามสกุล', 'ชั้น/เลขที่', 'คะแนน', 'เต็ม', 'เปอร์เซ็นต์', 'สลับจอ', 'สถานะ', 'บันทึก'];
-      const rows = cachedAdminRecords.map(r => [
-        r.timestamp, r.studentId, r.fullName, r.classroom, r.score, r.total, r.percent, r.warnings, r.status, r.logs
-      ].map(v => `"${String(v).replace(/"/g, '""')}"`).join(','));
-
-      const csvContent = '\uFEFF' + [headers.join(','), ...rows].join('\n');
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `VocabBeat_SET15-18_Results.csv`;
-      a.click();
-    }
-  </script>
+// สำหรับทดสอบอัตโนมัติ
+window.__VB={BANK:BANK,CONFIG:CONFIG,makeCode:makeCode,state:function(){return S}};
+})();
+</script>
 </body>
 </html>
