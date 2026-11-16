@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ADVANCE VOCAB BEAT - SET 15-18 Exam</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Prompt', sans-serif;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    input {
+      -webkit-user-select: text !important;
+      user-select: text !important;
+    }
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+    .glass-card {
+      background: rgba(30, 41, 59, 0.92);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .option-btn {
+      transition: all 0.15s ease;
+    }
+    .option-btn:hover {
+      transform: translateX(4px);
+    }
+    .shake {
+      animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+    }
+    @keyframes shake {
+      10%, 90% { transform: translate3d(-2px, 0, 0); }
+      20%, 80% { transform: translate3d(4px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+      40%, 60% { transform: translate3d(6px, 0, 0); }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between" oncontextmenu="return false;">
+
+  <!-- Top Navigation Bar -->
+  <header class="w-full bg-slate-900/90 border-b border-slate-800 px-4 py-3 sticky top-0 z-40">
+    <div class="max-w-4xl mx-auto flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="bg-red-600 text-white font-bold px-2.5 py-1 rounded text-sm tracking-wider">VOCAB BEAT</div>
+        <div>
+          <h1 class="text-sm sm:text-base font-bold text-white leading-tight">ADVANCE VOCABULARY EXAM</h1>
+          <p class="text-xs text-slate-400">SET 15 - 18 (30 ข้อ) • Academic Year 2026</p>
+        </div>
+      </div>
+      <button id="adminBtn" onclick="openAdminModal()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700 transition">
+        🔒 ครูผู้สอน (Admin)
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-grow flex items-center justify-center p-4">
+
+    <!-- 1. หน้าลงทะเบียนเข้าสอบ -->
+    <section id="loginSection" class="w-full max-w-lg glass-card rounded-2xl p-6 sm:p-8 shadow-2xl">
+      <div class="text-center mb-6">
+        <span class="inline-block bg-amber-500/20 text-amber-400 text-xs font-semibold px-3 py-1 rounded-full mb-2 border border-amber-500/30">
+          ANTI-CHEAT PROTECTED SYSTEM
+        </span>
+        <h2 class="text-2xl font-bold text-white">แบบทดสอบคำศัพท์ SET 15 - 18</h2>
+        <p class="text-slate-400 text-sm mt-1">จำนวน 30 ข้อ | เวลาทำข้อสอบ 25 นาที</p>
+      </div>
+
+      <div class="bg-red-950/50 border border-red-500/40 rounded-xl p-4 mb-6 text-xs sm:text-sm text-red-200 space-y-1.5">
+        <p class="font-bold text-red-400 flex items-center gap-1.5">⚠️ กฎการป้องกันการทุจริต (โปรดอ่าน):</p>
+        <ul class="list-disc list-inside space-y-1 text-red-200/90">
+          <li>ระบบจะเปิดโหมด <b>เต็มหน้าจอ (Fullscreen)</b> อัตโนมัติ</li>
+          <li>ห้ามสลับแท็บ, พับหน้าจอ, เปิดแอปอื่น หรือกดออกจาก Fullscreen</li>
+          <li>หากฝ่าฝืนครบ <b>3 ครั้ง (3 Strikes)</b> ระบบจะส่งข้อสอบทันที</li>
+          <li>หากรีเฟรชหน้าจอระหว่างสอบ จะถูกหักสิทธิ์แจ้งเตือน 1 ครั้ง</li>
+        </ul>
+      </div>
+
+      <form id="startForm" onsubmit="handleStartExam(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-medium text-slate-300 mb-1">ชื่อ - นามสกุล (ภาษาไทย) <span class="text-red-400">*</span></label>
+          <input type="text" id="fullName" required placeholder="เช่น นายสมชาย ใจดี"
+            class="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-red-500">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">เลขประจำตัวนักเรียน <span class="text-red-400">*</span></label>
+            <input type="text" id="studentId" required placeholder="เช่น 12345"
+              class="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-red-500">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">ระดับชั้น / เลขที่ <span class="text-red-400">*</span></label>
+            <input type="text" id="classroom" required placeholder="เช่น ม.5/1 เลขที่ 12"
+              class="w-full bg-slate-800/80 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-red-500">
+          </div>
+        </div>
+
+        <button type="submit" id="startBtn"
+          class="w-full mt-2 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold py-3 rounded-xl shadow-lg shadow-red-600/30 transition transform active:scale-95">
+          เริ่มทำข้อสอบ (เข้าสู่โหมดเต็มจอ)
+        </button>
+      </form>
+    </section>
+
+    <!-- 2. หน้าทำข้อสอบ -->
+    <section id="examSection" class="hidden w-full max-w-3xl space-y-4">
+      <!-- Status Bar -->
+      <div class="glass-card rounded-xl p-4 flex flex-wrap justify-between items-center gap-3">
+        <div>
+          <p id="displayStudentName" class="text-sm font-bold text-white">-</p>
+          <p id="displayStudentMeta" class="text-xs text-slate-400">-</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <div id="strikeBadge" class="bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold text-amber-400">
+            แจ้งเตือนทุจริต: <span id="warningCount">0</span> / 3
+          </div>
+          <div class="bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-lg text-sm font-bold text-emerald-400">
+            ⏱️ <span id="timerDisplay">25:00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+        <div id="progressBar" class="bg-red-500 h-full transition-all duration-300" style="width: 3.33%"></div>
+      </div>
+
+      <!-- Question Card -->
+      <div class="glass-card rounded-2xl p-6 sm:p-8 shadow-xl">
+        <div class="flex justify-between items-center mb-4">
+          <span id="questionSetBadge" class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-semibold px-3 py-1 rounded-full">
+            SET 15
+          </span>
+          <span class="text-sm font-semibold text-slate-400">
+            ข้อที่ <span id="currentQNum" class="text-white text-lg">1</span> / 30
+          </span>
+        </div>
+
+        <h3 id="questionText" class="text-lg sm:text-xl font-semibold text-white mb-6 leading-relaxed">
+          กำลังโหลดคำถาม...
+        </h3>
+
+        <div id="optionsContainer" class="space-y-3">
+          <!-- Options generated by JS -->
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="flex justify-between items-center mt-8 pt-4 border-t border-slate-700/70">
+          <button onclick="prevQuestion()" id="prevBtn"
+            class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-medium disabled:opacity-40">
+            ← ข้อก่อนหน้า
+          </button>
+
+          <button onclick="nextQuestion()" id="nextBtn"
+            class="px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-sm font-bold shadow-md">
+            ข้อถัดไป →
+          </button>
+
+          <button onclick="confirmSubmit()" id="submitExamBtn"
+            class="hidden px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold shadow-lg shadow-emerald-600/30">
+            ✓ ส่งกระดาษคำตอบ
+          </button>
+        </div>
+      </div>
+
+      <!-- Question Navigator Grid -->
+      <div class="glass-card rounded-xl p-4">
+        <p class="text-xs text-slate-400 mb-2.5">แผนผังข้อสอบ (คลิกเพื่อข้ามไปยังข้อที่ต้องการ):</p>
+        <div id="questionGrid" class="grid grid-cols-10 gap-1.5">
+          <!-- 1-30 buttons -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. หน้าแสดงผลคะแนนและเฉลย -->
+    <section id="resultSection" class="hidden w-full max-w-3xl space-y-6">
+      <div class="glass-card rounded-2xl p-6 sm:p-8 text-center shadow-2xl">
+        <div id="resultIcon" class="text-5xl mb-3">🎉</div>
+        <h2 class="text-2xl font-bold text-white">บันทึกผลสอบเรียบร้อยแล้ว</h2>
+        <p id="resultStudentInfo" class="text-slate-400 text-sm mt-1">-</p>
+
+        <div class="my-6 inline-flex flex-col items-center justify-center bg-slate-800/90 border border-slate-700 rounded-2xl px-10 py-6">
+          <span class="text-xs text-slate-400 uppercase tracking-wider">คะแนนรวมของคุณ</span>
+          <div class="text-5xl font-extrabold text-emerald-400 my-1">
+            <span id="finalScore">0</span><span class="text-2xl text-slate-500">/30</span>
+          </div>
+          <span id="resultStatusBadge" class="mt-2 text-xs font-semibold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300">
+            ส่งข้อสอบสำเร็จ
+          </span>
+        </div>
+
+        <p id="syncMessage" class="text-xs text-slate-400">กำลังซิงค์ข้อมูลเข้าสู่ฐานข้อมูล Google Sheets...</p>
+      </div>
+
+      <!-- เฉลยละเอียด -->
+      <div class="glass-card rounded-2xl p-6">
+        <h3 class="text-lg font-bold text-white mb-4">📋 เฉลยข้อสอบทั้งหมด (SET 15 - 18)</h3>
+        <div id="reviewContainer" class="space-y-4 max-h-[500px] overflow-y-auto pr-2">
+          <!-- Review items -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal แจ้งเตือนการทุจริต -->
+  <div id="cheatModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-slate-900 border-2 border-red-500 rounded-2xl max-w-md w-full p-6 text-center shadow-2xl shake">
+      <div class="text-5xl mb-3">🚨</div>
+      <h3 class="text-xl font-bold text-red-400">ตรวจพบพฤติกรรมเสี่ยงทุจริต!</h3>
+      <p id="cheatReasonText" class="text-slate-200 text-sm mt-2">คุณได้สลับหน้าจอหรือออกจากโหมดเต็มจอ</p>
+      <div class="my-4 bg-red-950/60 border border-red-500/40 rounded-xl py-3">
+        <p class="text-xs text-red-300">คำเตือนครั้งที่</p>
+        <p class="text-3xl font-extrabold text-red-400"><span id="modalStrikeNum">1</span> / 3</p>
+      </div>
+      <p class="text-xs text-slate-400 mb-5">หากครบ 3 ครั้ง ระบบจะยุติการสอบและส่งคะแนนทันที</p>
+      <button onclick="resumeExamFullscreen()" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-3 rounded-xl">
+        รับทราบ และกลับเข้าสู่หน้าจอสอบ
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal ระบบหลังบ้าน Admin -->
+  <div id="adminModal" class="hidden fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-4xl w-full p-6 max-h-[90vh] flex flex-col">
+      <div class="flex justify-between items-center pb-4 border-b border-slate-800">
+        <h3 class="text-lg font-bold text-white">📊 ระบบหลังบ้านครูผู้สอน (Google Sheets Live Data)</h3>
+        <button onclick="closeAdminModal()" class="text-slate-400 hover:text-white text-xl">✕</button>
+      </div>
+
+      <!-- Admin Login -->
+      <div id="adminLoginBox" class="py-10 max-w-sm mx-auto w-full text-center space-y-4">
+        <p class="text-sm text-slate-300">กรุณากรอกรหัสผ่านผู้ดูแลระบบเพื่อดูคะแนนสอบ</p>
+        <input type="password" id="adminPassInput" placeholder="รหัสผ่าน (ค่าเริ่มต้น: admin1234)"
+          class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-center">
+        <button onclick="fetchAdminData()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2.5 rounded-xl">
+          เข้าสู่ระบบ
+        </button>
+      </div>
+
+      <!-- Admin Table -->
+      <div id="adminDataBox" class="hidden flex-grow overflow-hidden flex flex-col mt-4">
+        <div class="flex flex-wrap justify-between items-center gap-2 mb-3">
+          <span id="adminTotalCount" class="text-xs text-slate-400">ผู้เข้าสอบทั้งหมด: 0 คน</span>
+          <div class="flex gap-2">
+            <button onclick="fetchAdminData()" class="text-xs bg-slate-800 hover:bg-slate-700 text-white px-3 py-1.5 rounded-lg">
+              🔄 รีเฟรชข้อมูล
+            </button>
+            <button onclick="exportAdminCSV()" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-lg font-semibold">
+              📥 Export CSV
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-auto border border-slate-800 rounded-xl flex-grow">
+          <table class="w-full text-left text-xs text-slate-300">
+            <thead class="bg-slate-800 text-slate-200 sticky top-0">
+              <tr>
+                <th class="p-3">เวลาส่ง</th>
+                <th class="p-3">รหัส</th>
+                <th class="p-3">ชื่อ-นามสกุล</th>
+                <th class="p-3">ชั้น/เลขที่</th>
+                <th class="p-3">คะแนน</th>
+                <th class="p-3">สลับจอ</th>
+                <th class="p-3">สถานะ</th>
+              </tr>
+            </thead>
+            <tbody id="adminTableBody" class="divide-y divide-slate-800">
+              <!-- Data rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // คลังข้อสอบ 30 ข้อ (SET 15 - 18) อ้างอิงจากเอกสาร ADVANCE VOCAB BEAT
+    // ==========================================
+    const QUESTION_BANK = [
+      // --- SET 15 (7 ข้อ) ---
+      { set: "SET 15", q: "คำว่า 'cautious' มีความหมายตรงกับข้อใด?", options: ["รอบคอบ ระมัดระวัง", "โกรธจัด", "เสี่ยงอันตราย", "เศร้าสลด"], ans: "รอบคอบ ระมัดระวัง" },
+      { set: "SET 15", q: "คำว่า 'adverse' มีความหมายว่าอย่างไร?", options: ["ตรงกันข้าม / ข้อเสียเปรียบ", "เป็นประโยชน์อย่างยิ่ง", "แนบติด", "เฉียบพลัน"], ans: "ตรงกันข้าม / ข้อเสียเปรียบ" },
+      { set: "SET 15", q: "คำศัพท์ใดแปลว่า 'ควันหลง / ผลที่ตามมา'?", options: ["aftermath", "affection", "accusation", "abstract"], ans: "aftermath" },
+      { set: "SET 15", q: "คำว่า 'accomplish' มีความหมายตรงกับข้อใด?", options: ["ทำสำเร็จ บรรลุผล", "ให้อำนาจ", "กล่าวโทษ", "ยินยอม"], ans: "ทำสำเร็จ บรรลุผล" },
+      { set: "SET 15", q: "คำว่า 'consent' ตรงกับความหมายภาษาไทยในข้อใด?", options: ["ยินยอม / อนุญาต", "ให้พร", "รอยแตก", "นิรนาม"], ans: "ยินยอม / อนุญาต" },
+      { set: "SET 15", q: "The patient suffered from ________ abdominal pain and had to be rushed to the hospital immediately.", options: ["acute", "anonymous", "abstract", "acid"], ans: "acute" },
+      { set: "SET 15", q: "Only the manager has the right to ________ payments over 50,000 baht.", options: ["authorize", "adhere", "mourn", "assert"], ans: "authorize" },
+
+      // --- SET 16 (8 ข้อ) ---
+      { set: "SET 16", q: "คำว่า 'allocate' มีความหมายตรงกับข้อใด?", options: ["จัดสรร แบ่งสรร", "ประกอบกัน", "ดูหมิ่น", "ยอมทำตาม"], ans: "จัดสรร แบ่งสรร" },
+      { set: "SET 16", q: "คำว่า 'arid' และ 'drought' เกี่ยวข้องกับความหมายใด?", options: ["แห้งแล้ง / ภัยแล้ง", "ไม่เป็นระเบียบ", "สื่อสารชัดเจน", "ไม่น่าเชื่อ"], ans: "แห้งแล้ง / ภัยแล้ง" },
+      { set: "SET 16", q: "คำศัพท์ใดแปลว่า 'ไม่น่าเชื่อ / ไร้สาระ'?", options: ["absurd", "adequate", "affordable", "approximate"], ans: "absurd" },
+      { set: "SET 16", q: "คำว่า 'comply' มีความหมายว่าอย่างไร?", options: ["ยอมทำตาม ปฏิบัติตาม", "เอาเปรียบ", "คุกรุ่น", "แต่งตั้ง"], ans: "ยอมทำตาม ปฏิบัติตาม" },
+      { set: "SET 16", q: "คำว่า 'articulate' มีความหมายตรงกับข้อใด?", options: ["สื่อสารชัดเจน พูดฉะฉาน", "เรียงเป็นเส้นตรง", "การฝึกงาน", "การนำมาใช้"], ans: "สื่อสารชัดเจน พูดฉะฉาน" },
+      { set: "SET 16", q: "All visitors must ________ with the safety regulations inside the laboratory.", options: ["comply", "insult", "smolder", "exploit"], ans: "comply" },
+      { set: "SET 16", q: "The company launched a new line of ________ laptops designed for university students.", options: ["affordable", "disorganized", "disabled", "absurd"], ans: "affordable" },
+      { set: "SET 16", q: "She is a strong ________ for animal rights and environmental protection.", options: ["advocate", "anchor", "alignment", "apprenticeship"], ans: "advocate" },
+
+      // --- SET 17 (7 ข้อ) ---
+      { set: "SET 17", q: "คำว่า 'extravagance' มีความหมายตรงกับข้อใด?", options: ["ความฟุ่มเฟือย สิ้นเปลือง", "ความอดกลั้น", "ความเอื้อเฟื้อ", "ความมั่นคง"], ans: "ความฟุ่มเฟือย สิ้นเปลือง" },
+      { set: "SET 17", q: "คำว่า 'abundant' มีความหมายว่าอย่างไร?", options: ["มากมาย อุดมสมบูรณ์", "มีพิษ", "ทุจริต", "เฉียบแหลม"], ans: "มากมาย อุดมสมบูรณ์" },
+      { set: "SET 17", q: "คำศัพท์ใดแปลว่า 'ให้การ (เป็นพยานในศาล)'?", options: ["testify", "utilize", "resign", "arrest"], ans: "testify" },
+      { set: "SET 17", q: "คำว่า 'valid' มีความหมายตรงกับข้อใด?", options: ["ใช้ได้ตามกฎหมาย / มีเหตุผล", "โดยสมัครใจ", "ตามลำดับ", "มีชีวิตชีวา"], ans: "ใช้ได้ตามกฎหมาย / มีเหตุผล" },
+      { set: "SET 17", q: "The minister decided to ________ after being accused of financial corruption.", options: ["resign", "cope", "handle", "utilize"], ans: "resign" },
+      { set: "SET 17", q: "Thai people are well known around the world for their warmth and ________ toward tourists.", options: ["hospitality", "accusation", "crisis", "tissue"], ans: "hospitality" },
+      { set: "SET 17", q: "Tom and Jerry won first and second prizes ________ in the national science competition.", options: ["respectively", "voluntarily", "ultimately", "subtly"], ans: "respectively" },
+
+      // --- SET 18 (8 ข้อ) ---
+      { set: "SET 18", q: "คำว่า 'compensate' มีความหมายตรงกับข้อใด?", options: ["ชดเชย ชดใช้", "กีดกัน", "ทำลายล้าง", "กักขัง"], ans: "ชดเชย ชดใช้" },
+      { set: "SET 18", q: "คำว่า 'defendant' ในทางกฎหมายหมายถึงใคร?", options: ["จำเลย", "พันธมิตร", "ผู้วินิจฉัย", "ผู้รับเลี้ยง"], ans: "จำเลย" },
+      { set: "SET 18", q: "คำศัพท์ใดแปลว่า 'เปิดโปง / เปิดเผยข้อมูล'?", options: ["disclose", "devise", "detain", "deprive"], ans: "disclose" },
+      { set: "SET 18", q: "คำว่า 'coincide' มีความหมายตรงกับข้อใด?", options: ["เกิดขึ้นพร้อมกัน / ตรงกัน", "เข้าถึงได้", "สืบให้แน่ใจ", "ประกอบกัน"], ans: "เกิดขึ้นพร้อมกัน / ตรงกัน" },
+      { set: "SET 18", q: "คำว่า 'suburban' ตรงกับความหมายใด?", options: ["ชานเมือง", "เบี้ยเลี้ยง", "ความอยากอาหาร", "การขนส่ง"], ans: "ชานเมือง" },
+      { set: "SET 18", q: "The police decided to ________ the suspect for further questioning.", options: ["detain", "diagnose", "assemble", "beware"], ans: "detain" },
+      { set: "SET 18", q: "A good leader must be ________ when facing an urgent emergency.", options: ["decisive", "allergic", "initial", "accessible"], ans: "decisive" },
+      { set: "SET 18", q: "Doctors use advanced blood tests to ________ rare diseases at an early stage.", options: ["diagnose", "devastate", "discriminate", "deprive"], ans: "diagnose" }
+    ];
+
+    // ตัวแปรสถานะการสอบ
+    let examQuestions = [];
+    let userAnswers = {};
+    let currentIdx = 0;
+    let warningCount = 0;
+    let cheatLogs = [];
+    let timeLeft = 25 * 60; // 25 นาที
+    let timerInterval = null;
+    let isExamActive = false;
+    let isSubmitting = false;
+    let studentInfo = {};
+    let cachedAdminRecords = [];
+
+    const STORAGE_KEY = 'vocab_beat_15_18_state';
+
+    // สุ่มอาเรย์ (Fisher-Yates Shuffle)
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    // กู้คืนสถานะหากนักเรียนแอบ Refresh หน้าเว็บระหว่างสอบ
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const state = JSON.parse(saved);
+          if (state.isExamActive && state.examQuestions && state.examQuestions.length === 30) {
+            studentInfo = state.studentInfo;
+            examQuestions = state.examQuestions;
+            userAnswers = state.userAnswers || {};
+            currentIdx = state.currentIdx || 0;
+            timeLeft = state.timeLeft || 1200;
+            warningCount = (state.warningCount || 0) + 1;
+            cheatLogs = state.cheatLogs || [];
+            cheatLogs.push(`รีเฟรชหน้าจอ (${new Date().toLocaleTimeString('th-TH')})`);
+
+            startExamUI();
+            if (warningCount >= 3) {
+              forceSubmitCheat('รีเฟรชหน้าจอครบกำหนด 3 ครั้ง');
+            } else {
+              triggerCheatWarning('ตรวจพบการรีเฟรชหน้าเว็บระหว่างทำข้อสอบ!');
+            }
+          }
+        } catch (e) {
+          localStorage.removeItem(STORAGE_KEY);
+        }
+      }
+    });
+
+    function saveStateToLocal() {
+      if (!isExamActive) return;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        isExamActive,
+        studentInfo,
+        examQuestions,
+        userAnswers,
+        currentIdx,
+        timeLeft,
+        warningCount,
+        cheatLogs
+      }));
+    }
+
+    // เริ่มต้นเข้าสอบ
+    function handleStartExam(e) {
+      e.preventDefault();
+      const fullName = document.getElementById('fullName').value.trim();
+      const studentId = document.getElementById('studentId').value.trim();
+      const classroom = document.getElementById('classroom').value.trim();
+
+      const btn = document.getElementById('startBtn');
+      btn.disabled = true;
+      btn.innerText = 'กำลังตรวจสอบรายชื่อ...';
+
+      // ตรวจสอบว่าเคยส่งข้อสอบใน Google Sheets แล้วหรือยัง
+      if (typeof google !== 'undefined' && google.script) {
+        google.script.run
+          .withSuccessHandler((res) => {
+            if (res && res.exists) {
+              alert('⚠️ พบข้อมูลชื่อหรือรหัสนักเรียนนี้ส่งข้อสอบไปแล้ว ไม่สามารถสอบซ้ำได้');
+              btn.disabled = false;
+              btn.innerText = 'เริ่มทำข้อสอบ (เข้าสู่โหมดเต็มจอ)';
+              return;
+            }
+            initNewExam(fullName, studentId, classroom);
+          })
+          .withFailureHandler(() => {
+            initNewExam(fullName, studentId, classroom);
+          })
+          .checkDuplicateStudent(studentId, fullName);
+      } else {
+        initNewExam(fullName, studentId, classroom);
+      }
+    }
+
+    function initNewExam(fullName, studentId, classroom) {
+      studentInfo = { fullName, studentId, classroom };
+      // สุ่มลำดับข้อสอบ 30 ข้อ และสุ่มตัวเลือก A-D ทุกข้อ
+      examQuestions = shuffleArray(QUESTION_BANK).map((item, idx) => ({
+        id: idx,
+        set: item.set,
+        q: item.q,
+        options: shuffleArray(item.options),
+        ans: item.ans
+      }));
+      userAnswers = {};
+      currentIdx = 0;
+      warningCount = 0;
+      cheatLogs = [];
+      timeLeft = 25 * 60;
+
+      requestFullscreenSafe();
+      startExamUI();
+      saveStateToLocal();
+    }
+
+    function startExamUI() {
+      isExamActive = true;
+      document.getElementById('loginSection').classList.add('hidden');
+      document.getElementById('adminBtn').classList.add('hidden');
+      document.getElementById('examSection').classList.remove('hidden');
+
+      document.getElementById('displayStudentName').innerText = studentInfo.fullName;
+      document.getElementById('displayStudentMeta').innerText = `รหัส: ${studentInfo.studentId} | ${studentInfo.classroom}`;
+      updateWarningUI();
+
+      renderQuestion();
+      renderGrid();
+      startTimer();
+    }
+
+    function requestFullscreenSafe() {
+      const el = document.documentElement;
+      if (el.requestFullscreen) {
+        el.requestFullscreen().catch(() => {});
+      } else if (el.webkitRequestFullscreen) {
+        el.webkitRequestFullscreen();
+      }
+    }
+
+    // นาฬิกานับถอยหลัง
+    function startTimer() {
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (!isExamActive) return;
+        timeLeft--;
+        const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+        const s = (timeLeft % 60).toString().padStart(2, '0');
+        document.getElementById('timerDisplay').innerText = `${m}:${s}`;
+
+        if (timeLeft % 5 === 0) saveStateToLocal();
+
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          submitExam('หมดเวลาสอบ (ส่งอัตโนมัติ)');
+        }
+      }, 1000);
+    }
+
+    // แสดงข้อสอบปัจจุบัน
+    function renderQuestion() {
+      const qObj = examQuestions[currentIdx];
+      document.getElementById('questionSetBadge').innerText = qObj.set;
+      document.getElementById('currentQNum').innerText = currentIdx + 1;
+      document.getElementById('questionText').innerText = `${currentIdx + 1}. ${qObj.q}`;
+
+      const percent = ((currentIdx + 1) / examQuestions.length) * 100;
+      document.getElementById('progressBar').style.width = `${percent}%`;
+
+      const container = document.getElementById('optionsContainer');
+      container.innerHTML = '';
+      const labels = ['A', 'B', 'C', 'D'];
+
+      qObj.options.forEach((opt, i) => {
+        const isSelected = userAnswers[currentIdx] === opt;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `option-btn w-full text-left p-4 rounded-xl border flex items-center gap-3 ${
+          isSelected
+            ? 'bg-red-600/25 border-red-500 text-white font-semibold'
+            : 'bg-slate-800/70 border-slate-700 text-slate-200 hover:bg-slate-800'
+        }`;
+        btn.innerHTML = `
+          <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold ${
+            isSelected ? 'bg-red-600 text-white' : 'bg-slate-700 text-slate-300'
+          }">${labels[i]}</span>
+          <span>${opt}</span>
+        `;
+        btn.onclick = () => {
+          userAnswers[currentIdx] = opt;
+          saveStateToLocal();
+          renderQuestion();
+          renderGrid();
+        };
+        container.appendChild(btn);
+      });
+
+      document.getElementById('prevBtn').disabled = currentIdx === 0;
+      if (currentIdx === examQuestions.length - 1) {
+        document.getElementById('nextBtn').classList.add('hidden');
+        document.getElementById('submitExamBtn').classList.remove('hidden');
+      } else {
+        document.getElementById('nextBtn').classList.remove('hidden');
+        document.getElementById('submitExamBtn').classList.add('hidden');
+      }
+    }
+
+    function renderGrid() {
+      const grid = document.getElementById('questionGrid');
+      grid.innerHTML = '';
+      examQuestions.forEach((_, idx) => {
+        const answered = Boolean(userAnswers[idx]);
+        const isCurrent = idx === currentIdx;
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.innerText = idx + 1;
+        b.className = `py-1.5 rounded text-xs font-bold transition ${
+          isCurrent
+            ? 'ring-2 ring-white bg-red-600 text-white'
+            : answered
+              ? 'bg-emerald-600/80 text-white'
+              : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+        }`;
+        b.onclick = () => {
+          currentIdx = idx;
+          renderQuestion();
+          renderGrid();
+        };
+        grid.appendChild(b);
+      });
+    }
+
+    function prevQuestion() {
+      if (currentIdx > 0) {
+        currentIdx--;
+        renderQuestion();
+        renderGrid();
+      }
+    }
+
+    function nextQuestion() {
+      if (currentIdx < examQuestions.length - 1) {
+        currentIdx++;
+        renderQuestion();
+        renderGrid();
+      }
+    }
+
+    // ==========================================
+    // ระบบป้องกันการทุจริต (Anti-Cheat Engine)
+    // ==========================================
+    document.addEventListener('visibilitychange', () => {
+      if (isExamActive && document.hidden) {
+        handleCheatEvent('สลับแท็บหรือพับหน้าจอเบราว์เซอร์');
+      }
+    });
+
+    window.addEventListener('blur', () => {
+      if (isExamActive) {
+        handleCheatEvent('คลิกออกนอกหน้าต่างข้อสอบ / เปิดโปรแกรมอื่น');
+      }
+    });
+
+    document.addEventListener('fullscreenchange', () => {
+      if (isExamActive && !document.fullscreenElement) {
+        handleCheatEvent('กดออกจากโหมดเต็มจอ (Exit Fullscreen)');
+      }
+    });
+
+    // ป้องกันคีย์ลัด Ctrl+C, Ctrl+V, F12, Ctrl+Shift+I, Alt+Tab
+    document.addEventListener('keydown', (e) => {
+      if (!isExamActive) return;
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && ['c', 'v', 'x', 'u', 's', 'p', 'a'].includes(e.key.toLowerCase())) ||
+        (e.ctrlKey && e.shiftKey && ['i', 'j', 'c'].includes(e.key.toLowerCase()))
+      ) {
+        e.preventDefault();
+        playBeep();
+      }
+    });
+
+    let lastCheatTime = 0;
+    function handleCheatEvent(reason) {
+      if (!isExamActive || isSubmitting) return;
+      const now = Date.now();
+      if (now - lastCheatTime < 1500) return; // ป้องกันนับซ้ำในเสี้ยววินาทีเดียว
+      lastCheatTime = now;
+
+      warningCount++;
+      const timeStr = new Date().toLocaleTimeString('th-TH');
+      cheatLogs.push(`ครั้งที่ ${warningCount}: ${reason} (${timeStr})`);
+      updateWarningUI();
+      saveStateToLocal();
+      playBeep();
+
+      if (warningCount >= 3) {
+        forceSubmitCheat(reason);
+      } else {
+        triggerCheatWarning(reason);
+      }
+    }
+
+    function triggerCheatWarning(reason) {
+      document.getElementById('cheatReasonText').innerText = reason;
+      document.getElementById('modalStrikeNum').innerText = warningCount;
+      document.getElementById('cheatModal').classList.remove('hidden');
+    }
+
+    function resumeExamFullscreen() {
+      document.getElementById('cheatModal').classList.add('hidden');
+      requestFullscreenSafe();
+    }
+
+    function updateWarningUI() {
+      document.getElementById('warningCount').innerText = warningCount;
+      if (warningCount > 0) {
+        document.getElementById('strikeBadge').classList.replace('text-amber-400', 'text-red-400');
+        document.getElementById('strikeBadge').classList.add('border-red-500');
+      }
+    }
+
+    function playBeep() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(520, ctx.currentTime);
+        osc.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.25);
+      } catch (e) {}
+    }
+
+    function forceSubmitCheat(lastReason) {
+      document.getElementById('cheatModal').classList.add('hidden');
+      submitExam(`ถูกบังคับส่ง (ทุจริตครบ 3 ครั้ง: ${lastReason})`);
+    }
+
+    function confirmSubmit() {
+      const answeredCount = Object.keys(userAnswers).length;
+      const msg = answeredCount < 30
+        ? `คุณยังทำข้อสอบไม่ครบ (ทำแล้ว ${answeredCount}/30 ข้อ) ต้องการส่งกระดาษคำตอบเลยหรือไม่?`
+        : 'ยืนยันการส่งกระดาษคำตอบใช่หรือไม่?';
+      if (confirm(msg)) {
+        submitExam('ส่งปกติ');
+      }
+    }
+
+    // คำนวณคะแนนและส่งเข้า Google Sheets Backend
+    function submitExam(statusText) {
+      if (isSubmitting) return;
+      isSubmitting = true;
+      isExamActive = false;
+      clearInterval(timerInterval);
+      localStorage.removeItem(STORAGE_KEY);
+
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      }
+
+      let score = 0;
+      examQuestions.forEach((item, idx) => {
+        if (userAnswers[idx] === item.ans) score++;
+      });
+
+      document.getElementById('examSection').classList.add('hidden');
+      document.getElementById('resultSection').classList.remove('hidden');
+      document.getElementById('adminBtn').classList.remove('hidden');
+
+      document.getElementById('finalScore').innerText = score;
+      document.getElementById('resultStudentInfo').innerText =
+        `${studentInfo.fullName} (รหัส ${studentInfo.studentId} • ${studentInfo.classroom})`;
+
+      const statusBadge = document.getElementById('resultStatusBadge');
+      statusBadge.innerText = statusText;
+      if (statusText.includes('ทุจริต')) {
+        statusBadge.className = 'mt-2 text-xs font-semibold px-3 py-1 rounded-full bg-red-500/20 text-red-300';
+        document.getElementById('resultIcon').innerText = '⚠️';
+      }
+
+      renderReview();
+
+      const payload = {
+        studentId: studentInfo.studentId,
+        fullName: studentInfo.fullName,
+        classroom: studentInfo.classroom,
+        score: score,
+        total: examQuestions.length,
+        warnings: warningCount,
+        status: statusText,
+        logs: cheatLogs.length > 0 ? cheatLogs.join(' | ') : 'ไม่มีประวัติผิดปกติ'
+      };
+
+      if (typeof google !== 'undefined' && google.script) {
+        google.script.run
+          .withSuccessHandler((res) => {
+            document.getElementById('syncMessage').innerHTML =
+              `<span class="text-emerald-400">✓ บันทึกคะแนนลง Google Sheets เรียบร้อยแล้ว (${res.timestamp})</span>`;
+          })
+          .withFailureHandler((err) => {
+            document.getElementById('syncMessage').innerHTML =
+              `<span class="text-red-400">เกิดข้อผิดพลาดในการบันทึก: ${err}</span>`;
+          })
+          .submitExamResult(payload);
+      } else {
+        document.getElementById('syncMessage').innerText = 'โหมดทดสอบ (ไม่ได้เชื่อมต่อ Google Sheets)';
+      }
+    }
+
+    function renderReview() {
+      const container = document.getElementById('reviewContainer');
+      container.innerHTML = '';
+      examQuestions.forEach((item, idx) => {
+        const uAns = userAnswers[idx] || 'ไม่ได้ตอบ';
+        const isCorrect = uAns === item.ans;
+        const div = document.createElement('div');
+        div.className = `p-4 rounded-xl border ${
+          isCorrect ? 'bg-emerald-950/30 border-emerald-500/30' : 'bg-red-950/30 border-red-500/30'
+        }`;
+        div.innerHTML = `
+          <div class="flex justify-between text-xs mb-1">
+            <span class="font-bold text-slate-400">ข้อ ${idx + 1} (${item.set})</span>
+            <span class="${isCorrect ? 'text-emerald-400' : 'text-red-400'} font-bold">
+              ${isCorrect ? '✓ ถูกต้อง' : '✕ ผิด'}
+            </span>
+          </div>
+          <p class="text-sm text-white font-medium mb-2">${item.q}</p>
+          <p class="text-xs text-slate-300">คำตอบของคุณ: <span class="${isCorrect ? 'text-emerald-400' : 'text-red-400'} font-semibold">${uAns}</span></p>
+          ${!isCorrect ? `<p class="text-xs text-emerald-400 mt-0.5">เฉลยที่ถูกต้อง: <b>${item.ans}</b></p>` : ''}
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // ==========================================
+    // ระบบหลังบ้านครูผู้สอน (Admin Dashboard)
+    // ==========================================
+    function openAdminModal() {
+      document.getElementById('adminModal').classList.remove('hidden');
+    }
+    function closeAdminModal() {
+      document.getElementById('adminModal').classList.add('hidden');
+    }
+
+    function fetchAdminData() {
+      const pass = document.getElementById('adminPassInput').value;
+      if (typeof google === 'undefined' || !google.script) {
+        alert('ฟังก์ชันนี้ทำงานเมื่อ Deploy บน Google Apps Script แล้วเท่านั้น');
+        return;
+      }
+      google.script.run
+        .withSuccessHandler((res) => {
+          if (!res.success) {
+            alert(res.message);
+            return;
+          }
+          document.getElementById('adminLoginBox').classList.add('hidden');
+          document.getElementById('adminDataBox').classList.remove('hidden');
+          cachedAdminRecords = res.records || [];
+          renderAdminTable(cachedAdminRecords);
+        })
+        .getAdminResults(pass);
+    }
+
+    function renderAdminTable(records) {
+      document.getElementById('adminTotalCount').innerText = `ผู้เข้าสอบทั้งหมด: ${records.length} คน`;
+      const tbody = document.getElementById('adminTableBody');
+      tbody.innerHTML = '';
+
+      if (records.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-slate-500">ยังไม่มีข้อมูลผู้เข้าสอบ</td></tr>`;
+        return;
+      }
+
+      records.forEach((r) => {
+        const tr = document.createElement('tr');
+        tr.className = r.warnings >= 3 ? 'bg-red-950/30' : 'hover:bg-slate-800/50';
+        tr.innerHTML = `
+          <td class="p-3 whitespace-nowrap">${r.timestamp}</td>
+          <td class="p-3">${r.studentId}</td>
+          <td class="p-3 font-medium text-white">${r.fullName}</td>
+          <td class="p-3">${r.classroom}</td>
+          <td class="p-3 font-bold text-emerald-400">${r.score}/${r.total} (${r.percent})</td>
+          <td class="p-3 font-bold ${r.warnings > 0 ? 'text-red-400' : 'text-slate-400'}">${r.warnings} ครั้ง</td>
+          <td class="p-3">${r.status}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function exportAdminCSV() {
+      if (!cachedAdminRecords.length) return;
+      const headers = ['Timestamp', 'รหัสนักเรียน', 'ชื่อ-นามสกุล', 'ชั้น/เลขที่', 'คะแนน', 'เต็ม', 'เปอร์เซ็นต์', 'สลับจอ', 'สถานะ', 'บันทึก'];
+      const rows = cachedAdminRecords.map(r => [
+        r.timestamp, r.studentId, r.fullName, r.classroom, r.score, r.total, r.percent, r.warnings, r.status, r.logs
+      ].map(v => `"${String(v).replace(/"/g, '""')}"`).join(','));
+
+      const csvContent = '\uFEFF' + [headers.join(','), ...rows].join('\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `VocabBeat_SET15-18_Results.csv`;
+      a.click();
+    }
+  </script>
+</body>
+</html>
