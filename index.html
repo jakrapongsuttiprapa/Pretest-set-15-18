@@ -260,6 +260,29 @@ body[data-set] .aurora i:nth-child(1){background:radial-gradient(circle,color-mi
 .flag{color:var(--red)!important;font-weight:900}
 .stamp{position:absolute;right:16px;top:18px;transform:rotate(12deg);font-weight:900;font-size:.8rem;letter-spacing:.14em;padding:6px 10px;border:2.5px solid currentColor;border-radius:8px;opacity:.9}
 
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.mode{text-align:left;padding:14px 14px;border-radius:18px;background:rgba(255,255,255,.04);border:1.5px solid var(--line);transition:.25s;position:relative}
+.mode b{display:block;font-size:1.08rem;font-weight:900;margin-bottom:3px}
+.mode span{font-size:.8rem;color:var(--mute);font-weight:600}
+.mode.on{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 12%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 18%,transparent),0 10px 30px -12px var(--acc)}
+.mode.on::after{content:"✓";position:absolute;right:12px;top:10px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:.8rem;font-weight:900;background:var(--acc);color:#0a0712}
+.mode[data-mode=practice].on{--acc:#b794ff}
+.opt.right{border-color:#3ef08f!important;background:rgba(62,240,143,.14)!important;box-shadow:0 0 0 3px rgba(62,240,143,.2),0 0 26px -6px #3ef08f!important}
+.opt.right .k{background:#3ef08f!important;color:#0a0712!important}
+.opt.wrong{border-color:#ff4d6d!important;background:rgba(255,77,109,.14)!important;animation:shake .45s}
+.opt.wrong .k{background:#ff4d6d!important;color:#fff!important}
+.fb{display:none;margin-top:14px;padding:13px 16px;border-radius:16px;font-weight:700;line-height:1.6;animation:optin .35s both}
+.fb.on{display:block}
+.fb.ok{background:rgba(62,240,143,.1);border:1px solid rgba(62,240,143,.5);color:#c9ffe0}
+.fb.no{background:rgba(255,77,109,.1);border:1px solid rgba(255,77,109,.5);color:#ffd2db}
+.fb span{color:#eae5fb;font-weight:600}
+.review{margin-top:16px}
+.review h4{font-size:1rem;margin-bottom:10px}
+.rv{padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid var(--line);margin-bottom:8px;font-size:.95rem;line-height:1.55}
+.rv-n{font-weight:900;margin-right:8px;font-size:.8rem}
+.rv .ans{color:#3ef08f}
+.rv-m{color:#d9d2f0;font-size:.88rem;margin-top:3px}
+.rv-y{color:#ff8fa3;font-size:.85rem;margin-top:3px}
 @media (max-width:560px){
   .opts{grid-template-columns:1fr}
   .tickets{grid-template-columns:repeat(2,1fr)}
@@ -299,21 +322,32 @@ body[data-set] .aurora i:nth-child(1){background:radial-gradient(circle,color-mi
       <div class="stats">
         <div class="stat"><b>30</b><span>ข้อ</span></div>
         <div class="stat"><b id="r-time">30</b><span>นาที</span></div>
-        <div class="stat"><b>1</b><span>ครั้ง / เครื่อง</span></div>
+        <div class="stat"><b id="r-pool">0</b><span>ข้อในคลัง</span></div>
       </div>
-      <h2>ลงทะเบียนเข้าสอบ</h2>
+      <div class="modes">
+        <button class="mode on" data-mode="exam"><b>📝 สอบจริง</b><span>จับเวลา · กันทุจริต · มีรหัสส่งครู</span></button>
+        <button class="mode" data-mode="practice"><b>🎯 ฝึกซ้อม</b><span>ไม่จับเวลา · เฉลยทันทีทุกข้อ</span></button>
+      </div>
+      <h2>ลงทะเบียน</h2>
       <div class="fields">
         <div class="field"><input id="fname" placeholder=" " autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="40"><label for="fname">ชื่อ</label></div>
         <div class="field"><input id="lname" placeholder=" " autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="40"><label for="lname">นามสกุล</label></div>
       </div>
       <div class="err" id="reg-err"></div>
 
-      <ul class="rules">
+      <ul class="rules" id="rules-exam">
         <li><i>⏱</i><span>เวลา <b id="r-time2">30</b> นาที หมดเวลา<b>ส่งอัตโนมัติ</b></span></li>
-        <li><i>🔀</i><span>ข้อสอบและตัวเลือกของแต่ละคน<b>สุ่มไม่ซ้ำกัน</b> · ยืนยันแล้ว<b>ย้อนกลับไม่ได้</b></span></li>
+        <li><i>🔀</i><span>สุ่ม 30 ข้อจากคลัง · ยืนยันแล้ว<b>ย้อนกลับไม่ได้</b></span></li>
         <li><i>🛡</i><span>สลับแอป/แท็บ · คัดลอก · แคปจอ · แปลภาษา = <b>บันทึกทุจริต</b></span></li>
         <li><i>⛔</i><span>ทุจริตครบ <b id="r-max">3</b> ครั้ง ระบบ<b>ส่งข้อสอบทันที</b></span></li>
+        <li><i>🔁</i><span>สอบซ้ำได้<b>ไม่จำกัดครั้ง</b> · ทุกรอบได้<b>ข้อใหม่ที่ยังไม่เคยทำ</b></span></li>
         <li><i>📸</i><span>สอบจบแล้ว<b>แคปหน้าจอผลสอบ</b>ส่งครู</span></li>
+      </ul>
+      <ul class="rules" id="rules-prac" style="display:none">
+        <li><i>🎯</i><span><b>ไม่จับเวลา</b> · ไม่ตรวจทุจริต ฝึกได้สบาย ๆ</span></li>
+        <li><i>💡</i><span>ตอบแล้ว<b>เฉลยทันที</b> พร้อมความหมายคำศัพท์</span></li>
+        <li><i>🔁</i><span>ฝึกได้<b>ไม่จำกัดครั้ง</b> · ทุกรอบได้<b>ข้อใหม่ที่ยังไม่เคยทำ</b> จากคลัง <b id="r-pool2">0</b> ข้อ</span></li>
+        <li><i>📖</i><span>จบรอบแล้วมี<b>สรุปข้อที่ผิด</b>ให้ทบทวน</span></li>
       </ul>
       <label class="agree"><input type="checkbox" id="agree"> ฉันรับทราบกติกาและจะสอบด้วยความซื่อสัตย์</label>
       <button class="btn" id="btn-start" disabled>▶ เริ่มทำข้อสอบ</button>
@@ -337,15 +371,16 @@ body[data-set] .aurora i:nth-child(1){background:radial-gradient(circle,color-mi
     <div class="panel qcard" id="quiz">
       <div class="stage" id="stage">
         <div class="qhead">
-          <div class="qno"><b id="qn">1</b>/ 30</div>
+          <div class="qno"><b id="qn">1</b><span id="qtotal">/ 30</span></div>
           <span class="setbadge" id="qset">SET 15</span>
         </div>
         <div class="qtype" id="qtype"></div>
         <div class="prompt" id="prompt"></div>
         <div class="opts" id="opts"></div>
+        <div class="fb" id="fb"></div>
       </div>
       <div class="actions"><button class="btn" id="btn-next" disabled>ยืนยันคำตอบ ➜</button></div>
-      <div class="note">เลือกคำตอบแล้วกด “ยืนยันคำตอบ” · ยืนยันแล้วแก้ไม่ได้</div>
+      <div class="note" id="note"></div>
     </div>
   </section>
 
@@ -354,7 +389,7 @@ body[data-set] .aurora i:nth-child(1){background:radial-gradient(circle,color-mi
     <div class="hero" style="margin:10px 0 18px">
       <div class="adv">Advance</div>
       <div class="title" style="font-size:clamp(2.4rem,10vw,3.6rem)">VOCAB BEAT</div>
-      <div class="tag">RESULT · SET 15–18</div>
+      <div class="tag" id="r-tag">RESULT · SET 15–18</div>
     </div>
     <div class="panel res-panel" id="result-card">
       <span class="stamp" id="r-stamp"></span>
@@ -364,18 +399,25 @@ body[data-set] .aurora i:nth-child(1){background:radial-gradient(circle,color-mi
       <div class="ring-wrap">
         <svg viewBox="0 0 220 220"><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22f0ee"/><stop offset=".55" stop-color="#b794ff"/><stop offset="1" stop-color="#ffd23f"/></linearGradient></defs>
           <circle class="trk" cx="110" cy="110" r="95"/><circle class="bar" id="ring-bar" cx="110" cy="110" r="95"/></svg>
-        <div class="ring-in"><div><b id="r-score">0</b><span>/ 30 คะแนน</span></div></div>
+        <div class="ring-in"><div><b id="r-score">0</b><span id="r-total">/ 30 คะแนน</span></div></div>
       </div>
       <span class="grade" id="r-grade"></span>
       <div class="bars" id="r-bd"></div>
       <div class="meta">
         <div><small>ส่งเมื่อ</small><span id="r-when"></span></div>
         <div><small>เวลาที่ใช้</small><span id="r-used"></span></div>
+        <div><small id="r-attl">รอบที่สอบ</small><span id="r-att"></span></div>
         <div><small>บันทึกการทุจริต</small><span id="r-vio"></span></div>
-        <div><small>รหัสยืนยันผล</small><span class="code" id="r-code"></span></div>
+        <div id="r-codebox" style="grid-column:1/-1;text-align:center"><small>รหัสยืนยันผล</small><span class="code" id="r-code"></span></div>
       </div>
       <div class="vlog" id="r-vlog" style="display:none"></div>
-      <div class="capture">📸 แคปหน้าจอนี้ส่งครู · ต้องเห็นชื่อ คะแนน และรหัสยืนยันผลครบ</div>
+      <div class="capture" id="r-capture"></div>
+      <div class="review" id="r-review" style="display:none"></div>
+    </div>
+    <div style="display:grid;gap:10px;margin-top:16px">
+      <button class="btn" id="btn-retake">🔁 สอบอีกครั้ง</button>
+      <button class="btn ghost" id="btn-other">🎯 ไปโหมดฝึกซ้อม</button>
+      <button class="btn ghost" id="btn-switch">👤 เปลี่ยนผู้สอบ</button>
     </div>
     <button class="teacher-link" id="btn-teacher2">สำหรับครู</button>
   </section>
@@ -398,8 +440,8 @@ body[data-set] .aurora i:nth-child(1){background:radial-gradient(circle,color-mi
 <!-- confirm start -->
 <div class="overlay" id="ov-confirm">
   <div class="modal">
-    <div class="ico">🎧</div>
-    <h3>พร้อมเริ่มสอบหรือยัง?</h3>
+    <div class="ico" id="confirm-ico">🎧</div>
+    <h3>พร้อมหรือยัง?</h3>
     <p id="confirm-msg"></p>
     <button class="btn" id="btn-go">🚀 เริ่มเลย</button>
     <button class="btn ghost" id="btn-cancel">แก้ชื่อ</button>
@@ -426,7 +468,7 @@ body[data-set] .aurora i:nth-child(1){background:radial-gradient(circle,color-mi
       <div class="err" id="v-out" style="font-weight:800"></div>
       <button class="btn gold" id="v-check">ตรวจรหัส</button>
       <hr style="border:0;border-top:1px solid var(--line);margin:16px 0">
-      <button class="btn ghost" id="t-reset">🔓 ปลดล็อกเครื่องนี้ (ให้สอบใหม่)</button>
+      <button class="btn ghost" id="t-reset">🗑 ล้างผลสอบและประวัติข้อในเครื่องนี้</button>
     </div>
     <button class="btn ghost" id="t-close" style="margin-top:10px">ปิด</button>
   </div>
@@ -439,56 +481,114 @@ body[data-set] .aurora i:nth-child(1){background:radial-gradient(circle,color-mi
 'use strict';
 /* ================= CONFIG (ครูแก้ได้) ================= */
 var CONFIG = {
-  TIME_LIMIT_MIN: 30,     // เวลาสอบ (นาที)
-  MAX_VIOLATIONS: 3,      // ทุจริตครบกี่ครั้งส่งอัตโนมัติ
+  QUESTIONS: 30,          // จำนวนข้อต่อรอบ
+  TIME_LIMIT_MIN: 30,     // เวลาสอบจริง (นาที) — โหมดฝึกซ้อมไม่จับเวลา
+  MAX_VIOLATIONS: 3,      // สอบจริง: ทุจริตครบกี่ครั้งส่งอัตโนมัติ
   TEACHER_PIN: '7846',    // PIN เมนูครู
   SALT: 'VB1518-TOAT-2026', // ใช้สร้างรหัสยืนยันผล (เปลี่ยนได้ แต่ต้องตรงกันตอนตรวจ)
-  STORE_KEY: 'vb_adv_1518_exam_v1',
+  STORE_KEY: 'vb_adv_1518_exam_v2',
+  HIST_KEY: 'vb_adv_1518_hist_v2',
   SOUND: true             // เสียงประกอบ
 };
 
-/* ================= QUESTION BANK: SET 15–18 (30 ข้อ) ================= */
-// t: 'en' = ศัพท์อังกฤษ → ความหมายไทย, 'th' = ไทย → ศัพท์อังกฤษ, 'ctx' = เติมคำในประโยค
-// o[0] = คำตอบที่ถูกเสมอ (ระบบสลับตำแหน่งให้อัตโนมัติ)
-var BANK = [
- // ---- SET 15 ----
- {s:15,t:'en', q:'cautious', o:['รอบคอบ','โกรธมาก','นิรนาม','เฉียบพลัน']},
- {s:15,t:'th', q:'นิรนาม', o:['anonymous','cautious','abstract','acute']},
- {s:15,t:'ctx',q:'The patient was rushed to hospital with ___ pain in his stomach. It started suddenly an hour ago.', o:['acute','abstract','anonymous','beneficial']},
- {s:15,t:'ctx',q:'Students cannot join the school trip without their parents’ ___.', o:['consent','fracture','aftermath','canvas']},
- {s:15,t:'en', q:'affection', o:['ความรักใคร่','ความเศร้าสลด','รอยแตก','การกล่าวโทษ']},
- {s:15,t:'th', q:'ความยากจน', o:['poverty','compound','activist','mourning']},
- {s:15,t:'ctx',q:'The young ___ organized a peaceful protest to protect the forest.', o:['activist','canvas','compound','acid']},
- {s:15,t:'en', q:'beneficial', o:['เป็นประโยชน์','ตรงกันข้าม','ให้อำนาจ','ยืนยัน']},
- // ---- SET 16 ----
- {s:16,t:'en', q:'affordable', o:['ไม่แพง','เพียงพอ','ใกล้เคียง','ไม่น่าเชื่อ']},
- {s:16,t:'th', q:'ดูหมิ่น', o:['insult','perceive','exert','comply']},
- {s:16,t:'ctx',q:'Many farmers lost their crops during the long ___. There was no rain for five months.', o:['drought','anchor','alignment','apprenticeship']},
- {s:16,t:'ctx',q:'All visitors must ___ with the safety rules inside the factory.', o:['comply','allocate','perceive','appoint']},
- {s:16,t:'en', q:'articulate', o:['สื่อสารชัดเจน','ประกอบกัน','แต่งตั้ง','สนับสนุน']},
- {s:16,t:'th', q:'ไม่เป็นระเบียบ', o:['disorganized','disabled','adequate','absurd']},
- {s:16,t:'ctx',q:'The school board will ___ a new principal next month.', o:['appoint','smolder','perceive','exert']},
- // ---- SET 17 ----
- {s:17,t:'en', q:'resign', o:['ลาออก','จับกุม','ให้การ','รับมือ']},
- {s:17,t:'th', q:'มีพิษ', o:['toxic','valid','subtle','vibrant']},
- {s:17,t:'ctx',q:'The police ___ the man for stealing a car last night.', o:['arrested','testified','resigned','utilized']},
- {s:17,t:'ctx',q:'Your passport is no longer ___. It expired last year.', o:['valid','vibrant','voluntary','abundant']},
- {s:17,t:'en', q:'hospitality', o:['ความเอื้อเฟื้อ','ความมั่นคง','ความอดกลั้น','วิกฤติ']},
- {s:17,t:'th', q:'ความเต็มใจ', o:['willingness','tolerance','stability','extravagance']},
- {s:17,t:'ctx',q:'Tom and Ann finished first and second, ___.', o:['respectively','voluntary','corrupt','abundant']},
- {s:17,t:'en', q:'abundant', o:['มากมาย','มีชีวิตชีวา','โดยสมัครใจ','ทุจริต']},
- // ---- SET 18 ----
- {s:18,t:'en', q:'devastate', o:['ทำลายล้าง','ชดเชย','วินิจฉัย','กักขัง']},
- {s:18,t:'th', q:'จำเลย', o:['defendant','alliance','allowance','carriage']},
- {s:18,t:'ctx',q:'I can’t eat peanuts because I am ___ to them.', o:['allergic','accessible','decisive','suburban']},
- {s:18,t:'ctx',q:'The doctor needs to run more tests to ___ the disease.', o:['diagnose','disclose','coincide','deprive']},
- {s:18,t:'en', q:'suburban', o:['ชานเมือง','ในตอนแรก','เบี้ยเลี้ยง','ความอยากอาหาร']},
- {s:18,t:'th', q:'เกิดขึ้นพร้อมกัน', o:['coincide','compensate','ascertain','discriminate']},
- {s:18,t:'ctx',q:'The company will ___ the workers for the extra hours they worked.', o:['compensate','detain','devise','beware']}
+/* ================= คลังคำศัพท์ SET 15–18 (จากสไลด์ VOCAB BEAT ADVANCE) ================= */
+// [SET, คำอังกฤษ, ความหมายไทย]  → ระบบสร้างโจทย์ 2 แบบต่อคำ (อังกฤษ→ไทย, ไทย→อังกฤษ)
+var WORDS = [
+ [15,'compound','สารประกอบ'],[15,'cautious','รอบคอบ'],[15,'furious','โกรธมาก'],[15,'poverty','ความยากจน'],
+ [15,'risky','เสี่ยงอันตราย'],[15,'authorize','ให้อำนาจ'],[15,'canvas','ผ้าใบ'],[15,'affection','ความรักใคร่'],
+ [15,'abstract','นามธรรม'],[15,'fracture','รอยแตก'],[15,'activist','นักกิจกรรม'],[15,'accomplish','ทำสำเร็จ'],
+ [15,'anonymous','นิรนาม'],[15,'adverse','ตรงกันข้าม'],[15,'assert','ยืนยัน'],[15,'acute','เฉียบพลัน'],
+ [15,'beneficial','เป็นประโยชน์'],[15,'accusation','การกล่าวโทษ'],[15,'aftermath','ควันหลง'],[15,'adhere','แนบติด'],
+ [15,'acid','เป็นกรด'],[15,'mourning','ความเศร้าสลด'],[15,'blessing','การให้พร'],[15,'consent','การยินยอม'],
+
+ [16,'allocate','จัดสรร'],[16,'assemble','ประกอบกัน'],[16,'disabled','พิการ'],[16,'apprenticeship','การฝึกงาน'],
+ [16,'perceive','รับรู้'],[16,'insult','ดูหมิ่น'],[16,'alter','เปลี่ยนแปลง'],[16,'drought','ความแห้งแล้ง'],
+ [16,'alignment','การเรียงเป็นเส้นตรง'],[16,'articulate','สื่อสารชัดเจน'],[16,'adequate','เพียงพอ'],[16,'affordable','ไม่แพง'],
+ [16,'appoint','แต่งตั้ง'],[16,'exploit','เอาเปรียบ'],[16,'disorganized','ไม่เป็นระเบียบ'],[16,'approximate','ใกล้เคียง'],
+ [16,'advocate','สนับสนุน'],[16,'smolder','คุกรุ่น'],[16,'anchor','สมอเรือ'],[16,'absurd','ไม่น่าเชื่อ'],
+ [16,'exert','ใช้ความพยายาม'],[16,'comply','ยอมทำตาม'],[16,'adoption','การนำมาใช้'],
+
+ [17,'extravagance','ความสิ้นเปลือง'],[17,'tolerance','ความอดกลั้น'],[17,'transformation','การปฏิรูป'],[17,'usage','การใช้'],
+ [17,'utilize','ใช้ประโยชน์'],[17,'abundant','มากมาย'],[17,'resign','ลาออก'],[17,'toxic','มีพิษ'],
+ [17,'crisis','วิกฤติ'],[17,'tissue','เนื้อเยื่อ'],[17,'hospitality','ความเอื้อเฟื้อ'],[17,'stability','ความมั่นคง'],
+ [17,'voluntary','โดยสมัครใจ'],[17,'willingness','ความเต็มใจ'],[17,'ultimate','มากที่สุด'],[17,'corrupt','ทุจริต'],
+ [17,'arrest','จับกุม'],[17,'respectively','ตามลำดับ'],[17,'cope','รับมือ'],[17,'subtle','ที่เฉียบแหลม'],
+ [17,'vibrant','มีชีวิตชีวา'],[17,'valid','ใช้ได้ตามกฎหมาย'],[17,'testify','ให้การ'],
+
+ [18,'compensate','ชดเชย'],[18,'defendant','จำเลย'],[18,'deprive','กีดกัน'],[18,'decisive','เด็ดเดี่ยว'],
+ [18,'initial','ในตอนแรก'],[18,'discriminate','แบ่งแยก'],[18,'devastate','ทำลายล้าง'],[18,'devise','วางแผน'],
+ [18,'diagnose','วินิจฉัย'],[18,'disclose','เปิดโปง'],[18,'carriage','การขนส่ง'],[18,'alliance','พันธมิตร'],
+ [18,'allowance','เบี้ยเลี้ยง'],[18,'adoption','การรับเลี้ยง'],[18,'coincide','เกิดขึ้นพร้อมกัน'],[18,'accessible','เข้าถึงได้'],
+ [18,'allergic','เป็นภูมิแพ้'],[18,'beware','เฝ้าระวัง'],[18,'detain','กักขัง'],[18,'ascertain','สืบให้แน่ใจ'],
+ [18,'appetite','ความอยากอาหาร'],[18,'suburban','ชานเมือง']
 ];
+// เติมคำในประโยค: [SET, คำศัพท์หลัก, ประโยค, [คำตอบถูก, ตัวลวง x3]]
+var CTX = [
+ [15,'acute','The patient was rushed to hospital with ___ pain in his stomach. It started suddenly an hour ago.',['acute','abstract','anonymous','beneficial']],
+ [15,'consent','Students cannot join the school trip without their parents’ ___.',['consent','fracture','aftermath','canvas']],
+ [15,'activist','The young ___ organized a peaceful protest to protect the forest.',['activist','canvas','compound','acid']],
+ [15,'furious','My dad was ___ when he saw the broken window. He shouted at everyone.',['furious','cautious','beneficial','abstract']],
+ [15,'poverty','Many families in the area live in ___ and cannot buy enough food.',['poverty','affection','fracture','canvas']],
+ [15,'risky','Swimming in the sea during a storm is very ___.',['risky','anonymous','abstract','acid']],
+ [15,'anonymous','The money came from an ___ donor. Nobody knows who he is.',['anonymous','furious','acute','cautious']],
+ [15,'beneficial','Eating vegetables every day is ___ to your health.',['beneficial','anonymous','furious','abstract']],
+ [15,'aftermath','In the ___ of the flood, many people had no homes.',['aftermath','canvas','compound','consent']],
+ [15,'accomplish','She worked very hard to ___ her goal of studying abroad.',['accomplish','assert','adhere','authorize']],
+ [15,'cautious','Be ___ when you cross this busy road.',['cautious','anonymous','abstract','acid']],
+
+ [16,'drought','Many farmers lost their crops during the long ___. There was no rain for five months.',['drought','anchor','alignment','apprenticeship']],
+ [16,'comply','All visitors must ___ with the safety rules inside the factory.',['comply','allocate','perceive','appoint']],
+ [16,'appoint','The school board will ___ a new principal next month.',['appoint','smolder','perceive','exert']],
+ [16,'affordable','This phone is cheap and ___ for most students.',['affordable','disorganized','absurd','disabled']],
+ [16,'adequate','We don’t have ___ chairs for everyone, so some people must stand.',['adequate','absurd','disabled','articulate']],
+ [16,'allocate','The school will ___ more money to buy new computers.',['allocate','insult','perceive','smolder']],
+ [16,'insult','Please don’t ___ your classmates. Be kind to everyone.',['insult','comply','smolder','allocate']],
+ [16,'assemble','You need a screwdriver to ___ this new desk.',['assemble','insult','perceive','comply']],
+ [16,'disorganized','His room is so ___. Clothes and books are everywhere.',['disorganized','affordable','adequate','approximate']],
+ [16,'absurd','The idea that the moon is made of cheese is ___.',['absurd','affordable','adequate','disabled']],
+ [16,'approximate','The ___ cost of the trip is 5,000 baht, maybe a little more.',['approximate','absurd','disorganized','disabled']],
+
+ [17,'arrest','The police ___ the man for stealing a car last night.',['arrested','testified','resigned','utilized']],
+ [17,'valid','Your passport is no longer ___. It expired last year.',['valid','vibrant','voluntary','abundant']],
+ [17,'respectively','Tom and Ann finished first and second, ___.',['respectively','voluntary','corrupt','abundant']],
+ [17,'resign','He decided to ___ from his job because he wanted to start his own business.',['resign','arrest','testify','utilize']],
+ [17,'toxic','Don’t drink that water. It is ___ and can make you sick.',['toxic','voluntary','subtle','ultimate']],
+ [17,'crisis','The country faced an economic ___, and many people lost their jobs.',['crisis','tissue','usage','willingness']],
+ [17,'voluntary','Joining the club is ___. You don’t have to join if you don’t want to.',['voluntary','toxic','corrupt','abundant']],
+ [17,'testify','The witness will ___ in court tomorrow about what he saw.',['testify','arrest','cope','utilize']],
+ [17,'corrupt','The ___ officer took money from people to break the rules.',['corrupt','voluntary','abundant','vibrant']],
+ [17,'vibrant','Bangkok is a ___ city, full of life, colour and energy.',['vibrant','toxic','corrupt','voluntary']],
+ [17,'cope','It is hard to ___ with stress during exam week.',['cope','resign','testify','arrest']],
+
+ [18,'allergic','I can’t eat peanuts because I am ___ to them.',['allergic','accessible','decisive','suburban']],
+ [18,'diagnose','The doctor needs to run more tests to ___ the disease.',['diagnose','disclose','coincide','deprive']],
+ [18,'compensate','The company will ___ the workers for the extra hours they worked.',['compensate','detain','devise','beware']],
+ [18,'detain','The police will ___ the suspect for questioning.',['detain','coincide','beware','appetite']],
+ [18,'devastate','The storm ___ the small village. Almost every house was destroyed.',['devastated','compensated','coincided','ascertained']],
+ [18,'suburban','They moved from the busy city centre to a quiet ___ area.',['suburban','allergic','decisive','initial']],
+ [18,'appetite','I’m sick, so I have no ___. I don’t want to eat anything.',['appetite','alliance','carriage','defendant']],
+ [18,'allowance','My parents give me a weekly ___ of 500 baht.',['allowance','appetite','alliance','carriage']],
+ [18,'initial','My ___ plan was to go by bus, but later I decided to take the train.',['initial','suburban','allergic','accessible']],
+ [18,'accessible','The new building is ___ to people in wheelchairs.',['accessible','initial','decisive','suburban']],
+ [18,'coincide','This year my birthday will ___ with Songkran Day.',['coincide','detain','devise','deprive']],
+ [18,'beware','Please ___ of the dog! It bites.',['beware','devise','detain','disclose']],
+ [18,'disclose','The company refused to ___ how much money it lost.',['disclose','coincide','deprive','detain']],
+ [18,'decisive','A good leader must be ___ and make quick decisions.',['decisive','suburban','allergic','initial']]
+];
+
+// สร้างคลังโจทย์ (POOL) อัตโนมัติ
+var POOL=[];
+WORDS.forEach(function(w){
+  POOL.push({id:'e:'+w[0]+':'+w[1],s:w[0],t:'en',w:w[1],q:w[1],a:w[2]});
+  POOL.push({id:'t:'+w[0]+':'+w[1],s:w[0],t:'th',w:w[1],q:w[2],a:w[1]});
+});
+CTX.forEach(function(c,i){POOL.push({id:'c:'+i,s:c[0],t:'ctx',w:c[1],q:c[2],a:c[3][0],d:c[3].slice(1)})});
+
 var TYPE_LABEL = {en:'MEANING · เลือกความหมายภาษาไทยที่ถูกต้อง', th:'WORD · เลือกคำศัพท์ที่ตรงกับความหมาย', ctx:'CONTEXT · เลือกคำเติมในช่องว่าง'};
 var SET_COLOR = {15:'#b794ff',16:'#22f0ee',17:'#ffd23f',18:'#ff4d6d'};
 var SET_LEVEL = {15:'BASIC',16:'A2',17:'A2',18:'C1'};
+var MEANING={};WORDS.forEach(function(w){MEANING[w[0]+':'+w[1]]=w[2]});
+
 
 /* ================= HELPERS ================= */
 function $(id){return document.getElementById(id)}
@@ -560,22 +660,64 @@ function confetti(){
 }
 
 /* ================= STATE ================= */
-var S=null; // {fname,lname,order:[{bi,opts}],idx,answers:[],vio:[],start,deadline,finished,finishedAt,score,reason}
+// S = {mode:'exam'|'practice', fname,lname,attempt, order:[{id,s,t,w,q,o:[4],a}], idx, answers:[], vio:[], start, deadline, finished, finishedAt, score, reason}
+var S=null;
 function save(){try{localStorage.setItem(CONFIG.STORE_KEY,JSON.stringify(S))}catch(e){}}
-function load(){try{var s=JSON.parse(localStorage.getItem(CONFIG.STORE_KEY)||'null');return s&&s.order?s:null}catch(e){return null}}
+function load(){try{var s=JSON.parse(localStorage.getItem(CONFIG.STORE_KEY)||'null');return s&&s.order&&s.order[0]&&s.order[0].o?s:null}catch(e){return null}}
 function fullName(){return S?normName(S.fname+' '+S.lname):''}
-function buildExam(fname,lname){
-  var r=rng(hash32(normName(fname+' '+lname).toLowerCase()+'|'+Date.now()));
-  return shuffle(BANK.map(function(_,i){return i}),r).map(function(bi){return {bi:bi,opts:shuffle([0,1,2,3],r)}});
+function nameKey(f,l){return normName(f+' '+l).toLowerCase()}
+function histAll(){try{return JSON.parse(localStorage.getItem(CONFIG.HIST_KEY)||'{}')||{}}catch(e){return {}}}
+function getHist(k){var h=histAll()[k]||{};return {seen:h.seen||[],exam:h.exam||0,prac:h.prac||0}}
+function putHist(k,v){var all=histAll();all[k]=v;try{localStorage.setItem(CONFIG.HIST_KEY,JSON.stringify(all))}catch(e){}}
+
+/* สุ่มชุดข้อสอบ: เลือกข้อที่ "ยังไม่เคยเจอ" ก่อนเสมอ · 1 คำศัพท์ไม่โผล่ซ้ำในรอบเดียวกัน · กระจายครบทั้ง 4 SET */
+function buildExam(key){
+  var N=CONFIG.QUESTIONS,h=getHist(key),seen={};h.seen.forEach(function(id){seen[id]=1});
+  var r=rng(hash32(key+'|'+Date.now()+'|'+Math.random()));
+  var sets=[15,16,17,18],quota={},base=Math.floor(N/4),extra=shuffle(sets,r).slice(0,N-base*4);
+  sets.forEach(function(s){quota[s]=base+(extra.indexOf(s)>=0?1:0)});
+  var usedW={},picks=[];
+  sets.forEach(function(s){
+    var c=POOL.filter(function(p){return p.s===s});
+    var cand=shuffle(c.filter(function(p){return !seen[p.id]}),r).concat(shuffle(c.filter(function(p){return seen[p.id]}),r));
+    var n=0;
+    for(var i=0;i<cand.length&&n<quota[s];i++){var p=cand[i];if(usedW[p.w])continue;usedW[p.w]=1;picks.push(p);n++}
+  });
+  picks=shuffle(picks,r);
+  // จดว่าเจอข้อไหนแล้ว — ถ้าคลังที่ยังไม่เคยเจอเหลือไม่พอรอบหน้า เริ่มวนใหม่ (แต่เลี่ยงข้อของรอบนี้)
+  picks.forEach(function(p){seen[p.id]=1});
+  var left=POOL.filter(function(p){return !seen[p.id]}).length;
+  h.seen=left<N?picks.map(function(p){return p.id}):Object.keys(seen);
+  putHist(key,h);
+  return picks.map(function(p){
+    var d;
+    if(p.t==='ctx')d=p.d.slice();
+    else{
+      var others=shuffle(WORDS.filter(function(w){return w[0]===p.s&&w[1]!==p.w&&w[2]!==p.a&&w[1]!==p.a}),r).slice(0,3);
+      d=others.map(function(w){return p.t==='en'?w[2]:w[1]});
+    }
+    var o=shuffle([p.a].concat(d),r);
+    return {id:p.id,s:p.s,t:p.t,w:p.w,q:p.q,o:o,a:o.indexOf(p.a)};
+  });
 }
 
 /* ================= SCREENS ================= */
 function show(id){['sc-reg','sc-quiz','sc-result'].forEach(function(s){$(s).classList.toggle('on',s===id)});window.scrollTo(0,0)}
 var inExam=false;
+function isExam(){return S&&S.mode==='exam'}
 
 /* ---------- register ---------- */
+var MODE='exam';
 $('r-time').textContent=CONFIG.TIME_LIMIT_MIN;$('r-time2').textContent=CONFIG.TIME_LIMIT_MIN;
-$('r-max').textContent=CONFIG.MAX_VIOLATIONS;
+$('r-max').textContent=CONFIG.MAX_VIOLATIONS;$('r-pool').textContent=POOL.length;$('r-pool2').textContent=POOL.length;
+function setMode(m){
+  MODE=m;
+  Array.prototype.forEach.call(document.querySelectorAll('.mode'),function(b){b.classList.toggle('on',b.getAttribute('data-mode')===m)});
+  $('rules-exam').style.display=m==='exam'?'':'none';$('rules-prac').style.display=m==='exam'?'none':'';
+  $('btn-start').textContent=m==='exam'?'▶ เริ่มสอบจริง':'🎯 เริ่มฝึกซ้อม';
+}
+Array.prototype.forEach.call(document.querySelectorAll('.mode'),function(b){b.addEventListener('click',function(){setMode(b.getAttribute('data-mode'));SFX.tap()})});
+setMode('exam');
 $('agree').addEventListener('change',function(){$('btn-start').disabled=!this.checked;if(this.checked)SFX.tap()});
 var NAME_RE=/^[A-Za-z฀-๿][A-Za-z฀-๿ .'-]*$/;
 $('btn-start').addEventListener('click',function(){
@@ -583,7 +725,10 @@ $('btn-start').addEventListener('click',function(){
   if(f.length<2||l.length<2){e.textContent='กรุณากรอกชื่อและนามสกุลให้ครบ (อย่างน้อย 2 ตัวอักษร)';return}
   if(!NAME_RE.test(f)||!NAME_RE.test(l)){e.textContent='ชื่อ-นามสกุลใช้ได้เฉพาะตัวอักษรไทยหรืออังกฤษ';return}
   e.textContent='';SFX.tap();
-  $('confirm-msg').innerHTML='ชื่อผู้สอบ: <b style="color:var(--cyan)">'+esc(f+' '+l)+'</b><br>เมื่อกดเริ่ม เวลา '+CONFIG.TIME_LIMIT_MIN+' นาทีจะเริ่มนับทันที<br>และเปลี่ยนชื่อไม่ได้อีก';
+  $('confirm-ico').textContent=MODE==='exam'?'📝':'🎯';
+  $('confirm-msg').innerHTML='ชื่อ: <b style="color:var(--cyan)">'+esc(f+' '+l)+'</b><br>'+(MODE==='exam'
+    ?'<b>โหมดสอบจริง</b> · เวลา '+CONFIG.TIME_LIMIT_MIN+' นาทีเริ่มนับทันที<br>ระบบกันทุจริตทำงานตลอดการสอบ'
+    :'<b>โหมดฝึกซ้อม</b> · ไม่จับเวลา<br>ตอบแล้วเฉลยทันทีทุกข้อ');
   $('ov-confirm').classList.add('on');
 });
 $('btn-cancel').addEventListener('click',function(){$('ov-confirm').classList.remove('on')});
@@ -591,12 +736,30 @@ var starting=false;
 $('btn-go').addEventListener('click',function(){
   if(starting)return;starting=true;
   $('ov-confirm').classList.remove('on');
-  var f=normName($('fname').value),l=normName($('lname').value);
-  runCountdown(function(){
-    var now=Date.now();
-    S={fname:f,lname:l,order:buildExam(f,l),idx:0,answers:[],vio:[],start:now,deadline:now+CONFIG.TIME_LIMIT_MIN*60000,finished:false};
-    save();enterExam();
-  });
+  var f=normName($('fname').value),l=normName($('lname').value),m=MODE;
+  runCountdown(function(){starting=false;newAttempt(f,l,m)});
+});
+function newAttempt(f,l,mode){
+  var key=nameKey(f,l),order=buildExam(key),h=getHist(key);
+  if(mode==='exam')h.exam++;else h.prac++;
+  putHist(key,h);
+  var now=Date.now();
+  S={mode:mode,fname:f,lname:l,attempt:mode==='exam'?h.exam:h.prac,order:order,idx:0,answers:[],vio:[],start:now,
+     deadline:mode==='exam'?now+CONFIG.TIME_LIMIT_MIN*60000:null,finished:false};
+  lastVio=0;save();enterExam();
+}
+var retaking=false;
+function again(mode){
+  if(!S||!S.finished||retaking)return;retaking=true;
+  var f=S.fname,l=S.lname;
+  runCountdown(function(){retaking=false;newAttempt(f,l,mode)});
+}
+$('btn-retake').addEventListener('click',function(){again(S.mode)});
+$('btn-other').addEventListener('click',function(){again(S.mode==='exam'?'practice':'exam')});
+$('btn-switch').addEventListener('click',function(){
+  document.body.removeAttribute('data-set');$('wm').classList.remove('on');
+  $('fname').value='';$('lname').value='';$('agree').checked=false;$('btn-start').disabled=true;starting=false;
+  show('sc-reg');
 });
 function runCountdown(done){
   var ov=$('ov-count'),el=$('count'),seq=['3','2','1','GO!'],i=0;ov.classList.add('on');
@@ -608,30 +771,38 @@ function runCountdown(done){
 }
 
 /* ---------- exam ---------- */
-var tick=null, chosen=-1, busy=false;
-function buildSegs(){
-  var h='';for(var i=0;i<S.order.length;i++)h+='<i></i>';$('segs').innerHTML=h;
-}
+var tick=null, chosen=-1, busy=false, reviewing=false;
+function buildSegs(){var h='';for(var i=0;i<S.order.length;i++)h+='<i></i>';$('segs').innerHTML=h}
 function paintSegs(){
   var segs=$('segs').children;
   for(var i=0;i<segs.length;i++){
-    segs[i].className=i<S.idx?'done':(i===S.idx?'now':'');
-    segs[i].style.setProperty('--c',i<S.idx?SET_COLOR[BANK[S.order[i].bi].s]:'');
+    var done=i<S.idx;
+    segs[i].className=done?'done':(i===S.idx?'now':'');
+    var c=done?SET_COLOR[S.order[i].s]:'';
+    if(done&&!isExam())c=S.answers[i]===S.order[i].a?'#3ef08f':'#ff4d6d';
+    segs[i].style.setProperty('--c',c);
   }
 }
 function enterExam(){
-  inExam=true;
+  inExam=true;reviewing=false;busy=false;
   $('who').textContent=fullName();$('av').textContent=(S.fname||'?').charAt(0).toUpperCase();
+  $('qtotal').textContent='/ '+S.order.length;
   setWatermark();
   try{history.pushState({exam:1},'',location.href)}catch(e){}
   show('sc-quiz');buildSegs();
+  $('vio-pill').style.display=isExam()?'':'none';
+  $('note').textContent=isExam()?'เลือกคำตอบแล้วกด “ยืนยันคำตอบ” · ยืนยันแล้วแก้ไม่ได้':'โหมดฝึกซ้อม · ตอบแล้วเฉลยทันที';
   renderQ(false);updateVio();
-  clearInterval(tick);tick=setInterval(updateTimer,500);updateTimer();
+  clearInterval(tick);
+  if(isExam()){tick=setInterval(updateTimer,500);updateTimer()}
+  else{var t=$('timer');t.classList.remove('low');t.textContent='🎯 ฝึกซ้อม #'+S.attempt}
 }
 function renderQ(animate){
   if(S.idx>=S.order.length){finish('ทำครบทุกข้อ');return}
-  var it=S.order[S.idx],q=BANK[it.bi];
-  chosen=-1;$('btn-next').disabled=true;
+  var q=S.order[S.idx];
+  chosen=-1;reviewing=false;
+  var nb=$('btn-next');nb.disabled=true;nb.textContent='ยืนยันคำตอบ ➜';
+  $('fb').className='fb';$('fb').innerHTML='';
   document.body.setAttribute('data-set',q.s);
   $('qn').textContent=S.idx+1;
   $('qset').innerHTML='SET '+q.s+'<small>'+SET_LEVEL[q.s]+'</small>';
@@ -641,14 +812,14 @@ function renderQ(animate){
   else if(q.t==='en')pr.innerHTML='คำว่า<br><span class="word" lang="en">'+esc(q.q)+'</span><br>แปลว่าอะไร?';
   else pr.innerHTML='<span class="word">'+esc(q.q)+'</span><br>ตรงกับคำศัพท์ใด?';
   var keys=['A','B','C','D'];
-  $('opts').innerHTML=it.opts.map(function(oi,k){
-    return '<button class="opt" data-k="'+k+'"><span class="k">'+keys[k]+'</span><span>'+esc(q.o[oi])+'</span></button>';
+  $('opts').innerHTML=q.o.map(function(txt,k){
+    return '<button class="opt" data-k="'+k+'"><span class="k">'+keys[k]+'</span><span>'+esc(txt)+'</span></button>';
   }).join('');
   paintSegs();
   var st=$('stage');st.classList.remove('out','in');if(animate!==false){void st.offsetWidth;st.classList.add('in')}
 }
 $('opts').addEventListener('click',function(ev){
-  var b=ev.target.closest('.opt');if(!b||!inExam||busy)return;
+  var b=ev.target.closest('.opt');if(!b||!inExam||busy||reviewing)return;
   chosen=+b.getAttribute('data-k');
   Array.prototype.forEach.call(this.children,function(c){c.classList.toggle('sel',c===b)});
   var r=b.getBoundingClientRect(),s=document.createElement('span'),sz=Math.max(r.width,r.height)||200;
@@ -657,34 +828,56 @@ $('opts').addEventListener('click',function(ev){
   b.appendChild(s);setTimeout(function(){if(s.parentNode)s.parentNode.removeChild(s)},650);
   SFX.tap();$('btn-next').disabled=false;
 });
+function explain(q){
+  var m=MEANING[q.s+':'+q.w]||'';
+  return '<b lang="en">'+esc(q.w)+'</b> = '+esc(m);
+}
 var lastNext=0;
 $('btn-next').addEventListener('click',function(){
-  if(!inExam||chosen<0||busy||Date.now()-lastNext<250)return;
+  if(!inExam||busy||Date.now()-lastNext<250)return;
   lastNext=Date.now();
-  var it=S.order[S.idx];
-  S.answers[S.idx]=it.opts[chosen]; // index ใน q.o (0 = ถูก)
-  S.idx++;save();SFX.next();
+  if(reviewing){ // โหมดฝึกซ้อม: กดไปข้อต่อไปหลังดูเฉลย
+    reviewing=false;
+    if(S.idx>=S.order.length){finish('ทำครบทุกข้อ');return}
+    busy=true;$('btn-next').disabled=true;$('stage').classList.add('out');
+    setTimeout(function(){busy=false;if(inExam)renderQ(true)},260);
+    return;
+  }
+  if(chosen<0)return;
+  var q=S.order[S.idx];
+  S.answers[S.idx]=chosen;S.idx++;save();
+  if(!isExam()){
+    var right=chosen===q.a,btns=$('opts').children;
+    btns[q.a].classList.add('right');if(!right)btns[chosen].classList.add('wrong');
+    Array.prototype.forEach.call(btns,function(b){b.classList.remove('sel')});
+    var fb=$('fb');fb.className='fb on '+(right?'ok':'no');
+    fb.innerHTML=(right?'✅ ถูกต้อง! ':'❌ ยังไม่ถูก · คำตอบคือ <b>'+esc(q.o[q.a])+'</b><br>')+'<span>'+explain(q)+'</span>';
+    (right?SFX.next:SFX.soft)();
+    reviewing=true;paintSegs();
+    var nb=$('btn-next');nb.disabled=false;nb.textContent=S.idx>=S.order.length?'ดูผลคะแนน 🏁':'ข้อต่อไป ➜';
+    return;
+  }
+  SFX.next();
   if(S.idx>=S.order.length){finish('ทำครบทุกข้อ');return}
-  // animate out → render next (state already saved, so a refresh mid-animation is safe)
   busy=true;$('btn-next').disabled=true;$('stage').classList.add('out');
   setTimeout(function(){busy=false;if(inExam)renderQ(true)},260);
 });
 function updateTimer(){
-  if(!inExam)return;
+  if(!inExam||!isExam())return;
   var left=S.deadline-Date.now();
   var t=$('timer');t.textContent='⏱ '+fmtClock(left);
   t.classList.toggle('low',left<=5*60000);
   if(left<=0)finish('หมดเวลา — ส่งอัตโนมัติ');
 }
 
-/* ---------- anti-cheat ---------- */
+/* ---------- anti-cheat (โหมดสอบจริงเท่านั้น) ---------- */
 var lastVio=0;
 function violation(kind){
-  if(!inExam||!S||S.finished)return;
+  if(!inExam||!S||S.finished||!isExam())return;
   var now=Date.now();
-  if(now-lastVio<1500)return; // กันนับซ้ำ (blur+hidden พร้อมกัน)
+  if(now-lastVio<1500)return;
   lastVio=now;
-  S.vio.push({k:kind,t:now,q:S.idx+1});save();
+  S.vio.push({k:kind,t:now,q:Math.min(S.idx+1,S.order.length)});save();
   updateVio();
   var n=S.vio.length,max=CONFIG.MAX_VIOLATIONS;
   if(n>=max){finish('ทุจริตครบ '+max+' ครั้ง — ส่งอัตโนมัติ');return}
@@ -705,28 +898,27 @@ window.addEventListener('blur',function(){
   setTimeout(function(){if(!document.hasFocus()&&!document.hidden)violation('สลับหน้าต่าง')},300);
 });
 window.addEventListener('pagehide',function(){if(inExam)violation('ปิด/รีเฟรชหน้าสอบ')});
-window.addEventListener('beforeunload',function(e){if(inExam){e.preventDefault();e.returnValue=''}});
+window.addEventListener('beforeunload',function(e){if(inExam&&isExam()){e.preventDefault();e.returnValue=''}});
 window.addEventListener('popstate',function(){
-  if(inExam){try{history.pushState({exam:1},'',location.href)}catch(e){} toast('ไม่สามารถย้อนกลับระหว่างสอบได้')}
+  if(inExam){try{history.pushState({exam:1},'',location.href)}catch(e){} toast('ไม่สามารถย้อนกลับระหว่างทำข้อสอบได้')}
 });
 ['copy','cut','paste'].forEach(function(ev){
   document.addEventListener(ev,function(e){if(inExam){e.preventDefault();violation('คัดลอก/วางข้อความ')}});
 });
-document.addEventListener('contextmenu',function(e){e.preventDefault();if(inExam)toast('ปิดการใช้งานเมนูคลิกขวาระหว่างสอบ')});
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
 document.addEventListener('dragstart',function(e){e.preventDefault()});
 document.addEventListener('selectstart',function(e){if(inExam&&!/INPUT|TEXTAREA/.test(e.target.tagName))e.preventDefault()});
 document.addEventListener('keydown',function(e){
-  if(!inExam)return;
+  if(!inExam||!isExam())return;
   var k=(e.key||'').toLowerCase(),mod=e.ctrlKey||e.metaKey;
   if(k==='f12'||(mod&&e.shiftKey&&['i','j','c','s'].indexOf(k)>=0)){e.preventDefault();violation('เปิดเครื่องมือนักพัฒนา');return}
   if(mod&&['c','x','v','a','p','s','u','f','g'].indexOf(k)>=0){e.preventDefault();violation('ใช้คีย์ลัดต้องห้าม (Ctrl/⌘+'+k.toUpperCase()+')');return}
   if(k==='printscreen'||(e.metaKey&&e.shiftKey&&['3','4','5'].indexOf(k)>=0)){e.preventDefault();violation('จับภาพหน้าจอ');return}
   if(k==='f5'||(mod&&k==='r')){e.preventDefault();toast('ห้ามรีเฟรชระหว่างสอบ');return}
 });
-document.addEventListener('keyup',function(e){if(inExam&&(e.key||'').toLowerCase()==='printscreen'){violation('จับภาพหน้าจอ');try{navigator.clipboard&&navigator.clipboard.writeText('')}catch(x){}}});
-
-// กันแปลภาษา: แอปนี้ไม่เคยแก้ text node เดิม (แทนที่ทั้งก้อนเสมอ) — ถ้ามี characterData เปลี่ยน = ตัวแปลภาษา
+document.addEventListener('keyup',function(e){if(inExam&&isExam()&&(e.key||'').toLowerCase()==='printscreen'){violation('จับภาพหน้าจอ');try{navigator.clipboard&&navigator.clipboard.writeText('')}catch(x){}}});
 try{
+  // กันแปลภาษา: แอปแทนที่ข้อความทั้งก้อนเสมอ ถ้ามี text node ถูกแก้ = ตัวแปลภาษา
   new MutationObserver(function(muts){
     for(var i=0;i<muts.length;i++){if(muts[i].type==='characterData'){violation('ใช้ตัวแปลภาษา');return}}
   }).observe($('quiz'),{characterData:true,subtree:true});
@@ -744,39 +936,62 @@ function setWatermark(){
 /* ---------- finish & result ---------- */
 function finish(reason){
   if(!S||S.finished)return;
-  inExam=false;busy=false;clearInterval(tick);
+  inExam=false;busy=false;reviewing=false;clearInterval(tick);
   $('ov-vio').classList.remove('on');
   var score=0;
-  S.order.forEach(function(it,i){if(S.answers[i]===0)score++});
-  S.finished=true;S.finishedAt=Math.min(Date.now(),S.deadline);S.score=score;S.reason=reason;
+  S.order.forEach(function(q,i){if(S.answers[i]===q.a)score++});
+  S.finished=true;S.finishedAt=S.deadline?Math.min(Date.now(),S.deadline):Date.now();S.score=score;S.reason=reason;
   save();
   renderResult(true);
 }
 function renderResult(fresh){
   document.body.removeAttribute('data-set');
   show('sc-result');setWatermark();
-  var total=S.order.length,score=S.score,vio=S.vio.length,pct=Math.round(score/total*100);
+  var exam=isExam(),total=S.order.length,score=S.score,vio=S.vio.length,pct=Math.round(score/total*100);
+  $('r-tag').textContent=(exam?'EXAM':'PRACTICE')+' · SET 15–18';
   $('r-name').textContent=fullName();
   $('r-reason').textContent=S.reason||'';
+  $('r-total').textContent='/ '+total+' คะแนน';
   var G=pct>=80?['ดีเยี่ยม','#3ef08f','🏆']:pct>=70?['ดีมาก','#22f0ee','🥇']:pct>=60?['ดี','#ffd23f','🥈']:pct>=50?['ผ่าน','#ffa94d','🎖']:['ต้องปรับปรุง','#ff4d6d','📚'];
   $('r-trophy').textContent=G[2];
   var g=$('r-grade');g.textContent=G[0]+' · '+pct+'%';g.style.background=G[1];g.style.boxShadow='0 0 30px '+G[1];
   var stp=$('r-stamp');
-  if(vio>0){stp.textContent='⚠ VIOLATION ×'+vio;stp.style.color='#ff4d6d'}else{stp.textContent='✓ CLEAN';stp.style.color='#3ef08f'}
+  if(!exam){stp.textContent='🎯 PRACTICE';stp.style.color='#b794ff'}
+  else if(vio>0){stp.textContent='⚠ VIOLATION ×'+vio;stp.style.color='#ff4d6d'}
+  else{stp.textContent='✓ CLEAN';stp.style.color='#3ef08f'}
   var per={15:[0,0],16:[0,0],17:[0,0],18:[0,0]};
-  S.order.forEach(function(it,i){var s=BANK[it.bi].s;per[s][1]++;if(S.answers[i]===0)per[s][0]++});
+  S.order.forEach(function(q,i){per[q.s][1]++;if(S.answers[i]===q.a)per[q.s][0]++});
   $('r-bd').innerHTML=[15,16,17,18].map(function(s){
     return '<div class="bar-row"><span class="lb" style="color:'+SET_COLOR[s]+'">SET '+s+'</span><div class="tr"><div class="fl" data-w="'+(per[s][1]?per[s][0]/per[s][1]*100:0)+'" style="background:linear-gradient(90deg,'+SET_COLOR[s]+',#fff);box-shadow:0 0 12px '+SET_COLOR[s]+'"></div></div><span class="vv">'+per[s][0]+'/'+per[s][1]+'</span></div>';
   }).join('');
   $('r-when').textContent=fmtTime(S.finishedAt);
   $('r-used').textContent=fmtDur(S.finishedAt-S.start);
-  var rv=$('r-vio');rv.textContent=vio+' ครั้ง';rv.classList.toggle('flag',vio>0);
-  $('r-code').textContent=makeCode(fullName(),score,vio);
+  $('r-attl').textContent=exam?'รอบที่สอบจริง':'รอบที่ฝึกซ้อม';
+  $('r-att').textContent='รอบที่ '+(S.attempt||1);
+  var rv=$('r-vio');
+  if(exam){rv.textContent=vio+' ครั้ง';rv.classList.toggle('flag',vio>0)}else{rv.textContent='— (ไม่ตรวจในโหมดฝึก)';rv.classList.remove('flag')}
+  $('r-codebox').style.display=exam?'':'none';
+  $('r-code').textContent=exam?makeCode(fullName(),score,vio):'';
+  var cap=$('r-capture');
+  cap.textContent=exam?'📸 แคปหน้าจอนี้ส่งครู · ต้องเห็นชื่อ คะแนน และรหัสยืนยันผลครบ':'🎯 ผลฝึกซ้อม (ไม่ใช้ส่งครู) · ทบทวนข้อที่ผิดด้านล่าง แล้วฝึกรอบใหม่ได้เลย';
   var lg=$('r-vlog');
-  if(vio){lg.style.display='block';lg.innerHTML=S.vio.map(function(v,i){var d=new Date(v.t);return '<div>#'+(i+1)+' '+pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds())+' · ข้อ '+v.q+' · '+esc(v.k)+'</div>'}).join('')}
+  if(exam&&vio){lg.style.display='block';lg.innerHTML=S.vio.map(function(v,i){var d=new Date(v.t);return '<div>#'+(i+1)+' '+pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds())+' · ข้อ '+v.q+' · '+esc(v.k)+'</div>'}).join('')}
   else lg.style.display='none';
+  // ทบทวนข้อผิด (เฉพาะโหมดฝึกซ้อม)
+  var rvw=$('r-review');
+  if(!exam){
+    var wrong=S.order.map(function(q,i){return {q:q,i:i}}).filter(function(x){return S.answers[x.i]!==x.q.a});
+    rvw.style.display='block';
+    rvw.innerHTML='<h4>📖 ทบทวนข้อที่ผิด ('+wrong.length+' ข้อ)</h4>'+(wrong.length?wrong.map(function(x){
+      var q=x.q,yours=S.answers[x.i]!=null?q.o[S.answers[x.i]]:'(ไม่ได้ตอบ)';
+      var top=q.t==='ctx'?esc(q.q).replace('___','<b class="ans">'+esc(q.o[q.a])+'</b>'):explain(q);
+      return '<div class="rv"><div class="rv-q"><span class="rv-n" style="color:'+SET_COLOR[q.s]+'">ข้อ '+(x.i+1)+'</span>'+top+'</div>'+
+        (q.t==='ctx'?'<div class="rv-m">'+explain(q)+'</div>':'')+'<div class="rv-y">คุณตอบ: '+esc(yours)+'</div></div>';
+    }).join(''):'<div class="rv" style="text-align:center">เยี่ยมมาก! ถูกทุกข้อ 🎉</div>');
+  }else rvw.style.display='none';
+  $('btn-retake').textContent=exam?'🔁 สอบจริงอีกครั้ง (ข้อใหม่)':'🔁 ฝึกซ้อมอีกครั้ง (ข้อใหม่)';
+  $('btn-other').textContent=exam?'🎯 ไปโหมดฝึกซ้อม':'📝 ไปสอบจริง';
 
-  // animations: ring + count-up + bars
   var bar=$('ring-bar'),C=597,sc=$('r-score');
   bar.style.transition='none';bar.style.strokeDashoffset=C;void bar.getBoundingClientRect();
   setTimeout(function(){bar.style.transition='';bar.style.strokeDashoffset=C*(1-score/total)},120);
@@ -801,12 +1016,12 @@ $('t-enter').addEventListener('click',function(){
 $('v-check').addEventListener('click',function(){
   var n=$('v-name').value,s=parseInt($('v-score').value,10),v=parseInt($('v-vio').value,10),c=normName($('v-code').value).toUpperCase(),o=$('v-out');
   if(!normName(n)||isNaN(s)||isNaN(v)||!c){o.style.color='var(--gold)';o.textContent='กรอกข้อมูลให้ครบ';return}
-  if(makeCode(n,s,v)===c){o.style.color='var(--green)';o.textContent='✅ รหัสถูกต้อง — ผลสอบเป็นของจริง'}
+  if(makeCode(n,s,v)===c){o.style.color='var(--green)';o.textContent='✅ รหัสถูกต้อง — ผลสอบจริงเป็นของจริง'}
   else{o.style.color='var(--red)';o.textContent='❌ รหัสไม่ตรง — ภาพอาจถูกแก้ไข หรือพิมพ์ข้อมูลไม่ตรงภาพ'}
 });
 $('t-reset').addEventListener('click',function(){
-  if(!confirm('ลบผลสอบ/สถานะในเครื่องนี้ เพื่อให้นักเรียนสอบใหม่?'))return;
-  try{localStorage.removeItem(CONFIG.STORE_KEY)}catch(e){}
+  if(!confirm('ลบผลสอบและประวัติข้อที่เคยทำทั้งหมดในเครื่องนี้?'))return;
+  try{localStorage.removeItem(CONFIG.STORE_KEY);localStorage.removeItem(CONFIG.HIST_KEY)}catch(e){}
   inExam=false;S=null;location.reload();
 });
 
@@ -814,15 +1029,16 @@ $('t-reset').addEventListener('click',function(){
 S=load();
 if(S){
   if(S.finished){renderResult(false)}
-  else if(Date.now()>=S.deadline){finish('หมดเวลา — ส่งอัตโนมัติ')}
+  else if(isExam()&&Date.now()>=S.deadline){finish('หมดเวลา — ส่งอัตโนมัติ')}
   else{
     var lastV=S.vio.length?S.vio[S.vio.length-1].t:0;
     enterExam();
-    if(Date.now()-lastV>4000){lastVio=0;violation('รีเฟรช/เปิดหน้าสอบใหม่')}
+    if(isExam()&&Date.now()-lastV>4000){lastVio=0;violation('รีเฟรช/เปิดหน้าสอบใหม่')}
   }
 }
 
-window.__VB={BANK:BANK,CONFIG:CONFIG,makeCode:makeCode,state:function(){return S}};
+window.__VB={POOL:POOL,WORDS:WORDS,CONFIG:CONFIG,makeCode:makeCode,state:function(){return S},getHist:getHist};
+
 })();
 </script>
 </body>
