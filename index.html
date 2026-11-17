@@ -325,7 +325,7 @@ body[data-set] .aurora i:nth-child(1){background:radial-gradient(circle,color-mi
         <div class="stat"><b id="r-pool">0</b><span>ข้อในคลัง</span></div>
       </div>
       <div class="modes">
-        <button class="mode on" data-mode="exam"><b>📝 สอบจริง</b><span>จับเวลา · กันทุจริต · มีรหัสส่งครู</span></button>
+        <button class="mode on" data-mode="exam"><b>📝 สอบจริง</b><span>จับเวลา · ไม่เฉลย · มีรหัสส่งครู</span></button>
         <button class="mode" data-mode="practice"><b>🎯 ฝึกซ้อม</b><span>ไม่จับเวลา · เฉลยทันทีทุกข้อ</span></button>
       </div>
       <h2>ลงทะเบียน</h2>
@@ -338,8 +338,8 @@ body[data-set] .aurora i:nth-child(1){background:radial-gradient(circle,color-mi
       <ul class="rules" id="rules-exam">
         <li><i>⏱</i><span>เวลา <b id="r-time2">30</b> นาที หมดเวลา<b>ส่งอัตโนมัติ</b></span></li>
         <li><i>🔀</i><span>สุ่ม 30 ข้อจากคลัง · ยืนยันแล้ว<b>ย้อนกลับไม่ได้</b></span></li>
-        <li><i>🛡</i><span>สลับแอป/แท็บ · คัดลอก · แคปจอ · แปลภาษา = <b>บันทึกทุจริต</b></span></li>
-        <li><i>⛔</i><span>ทุจริตครบ <b id="r-max">3</b> ครั้ง ระบบ<b>ส่งข้อสอบทันที</b></span></li>
+        <li class="ac-rule"><i>🛡</i><span>สลับแอป/แท็บ · คัดลอก · แคปจอ · แปลภาษา = <b>บันทึกทุจริต</b></span></li>
+        <li class="ac-rule"><i>⛔</i><span>ทุจริตครบ <b id="r-max">3</b> ครั้ง ระบบ<b>ส่งข้อสอบทันที</b></span></li>
         <li><i>🔁</i><span>สอบซ้ำได้<b>ไม่จำกัดครั้ง</b> · ทุกรอบได้<b>ข้อใหม่ที่ยังไม่เคยทำ</b></span></li>
         <li><i>📸</i><span>สอบจบแล้ว<b>แคปหน้าจอผลสอบ</b>ส่งครู</span></li>
       </ul>
@@ -483,6 +483,7 @@ body[data-set] .aurora i:nth-child(1){background:radial-gradient(circle,color-mi
 var CONFIG = {
   QUESTIONS: 30,          // จำนวนข้อต่อรอบ
   TIME_LIMIT_MIN: 30,     // เวลาสอบจริง (นาที) — โหมดฝึกซ้อมไม่จับเวลา
+  ANTI_CHEAT: false,      // true = เปิดระบบตรวจทุจริตในโหมดสอบจริง / false = ปิด (ทั้ง 2 โหมด)
   MAX_VIOLATIONS: 3,      // สอบจริง: ทุจริตครบกี่ครั้งส่งอัตโนมัติ
   TEACHER_PIN: '7846',    // PIN เมนูครู
   SALT: 'VB1518-TOAT-2026', // ใช้สร้างรหัสยืนยันผล (เปลี่ยนได้ แต่ต้องตรงกันตอนตรวจ)
@@ -709,7 +710,8 @@ function isExam(){return S&&S.mode==='exam'}
 /* ---------- register ---------- */
 var MODE='exam';
 $('r-time').textContent=CONFIG.TIME_LIMIT_MIN;$('r-time2').textContent=CONFIG.TIME_LIMIT_MIN;
-$('r-max').textContent=CONFIG.MAX_VIOLATIONS;$('r-pool').textContent=POOL.length;$('r-pool2').textContent=POOL.length;
+$('r-max').textContent=CONFIG.MAX_VIOLATIONS;
+if(!CONFIG.ANTI_CHEAT)Array.prototype.forEach.call(document.querySelectorAll('.ac-rule'),function(li){li.style.display='none'});$('r-pool').textContent=POOL.length;$('r-pool2').textContent=POOL.length;
 function setMode(m){
   MODE=m;
   Array.prototype.forEach.call(document.querySelectorAll('.mode'),function(b){b.classList.toggle('on',b.getAttribute('data-mode')===m)});
@@ -727,7 +729,7 @@ $('btn-start').addEventListener('click',function(){
   e.textContent='';SFX.tap();
   $('confirm-ico').textContent=MODE==='exam'?'📝':'🎯';
   $('confirm-msg').innerHTML='ชื่อ: <b style="color:var(--cyan)">'+esc(f+' '+l)+'</b><br>'+(MODE==='exam'
-    ?'<b>โหมดสอบจริง</b> · เวลา '+CONFIG.TIME_LIMIT_MIN+' นาทีเริ่มนับทันที<br>ระบบกันทุจริตทำงานตลอดการสอบ'
+    ?'<b>โหมดสอบจริง</b> · เวลา '+CONFIG.TIME_LIMIT_MIN+' นาทีเริ่มนับทันที'+(CONFIG.ANTI_CHEAT?'<br>ระบบกันทุจริตทำงานตลอดการสอบ':'')
     :'<b>โหมดฝึกซ้อม</b> · ไม่จับเวลา<br>ตอบแล้วเฉลยทันทีทุกข้อ');
   $('ov-confirm').classList.add('on');
 });
@@ -790,7 +792,7 @@ function enterExam(){
   setWatermark();
   try{history.pushState({exam:1},'',location.href)}catch(e){}
   show('sc-quiz');buildSegs();
-  $('vio-pill').style.display=isExam()?'':'none';
+  $('vio-pill').style.display=acOn()?'':'none';
   $('note').textContent=isExam()?'เลือกคำตอบแล้วกด “ยืนยันคำตอบ” · ยืนยันแล้วแก้ไม่ได้':'โหมดฝึกซ้อม · ตอบแล้วเฉลยทันที';
   renderQ(false);updateVio();
   clearInterval(tick);
@@ -872,8 +874,9 @@ function updateTimer(){
 
 /* ---------- anti-cheat (โหมดสอบจริงเท่านั้น) ---------- */
 var lastVio=0;
+function acOn(){return CONFIG.ANTI_CHEAT&&isExam()}
 function violation(kind){
-  if(!inExam||!S||S.finished||!isExam())return;
+  if(!inExam||!S||S.finished||!acOn())return;
   var now=Date.now();
   if(now-lastVio<1500)return;
   lastVio=now;
@@ -903,20 +906,20 @@ window.addEventListener('popstate',function(){
   if(inExam){try{history.pushState({exam:1},'',location.href)}catch(e){} toast('ไม่สามารถย้อนกลับระหว่างทำข้อสอบได้')}
 });
 ['copy','cut','paste'].forEach(function(ev){
-  document.addEventListener(ev,function(e){if(inExam){e.preventDefault();violation('คัดลอก/วางข้อความ')}});
+  document.addEventListener(ev,function(e){if(inExam&&acOn()){e.preventDefault();violation('คัดลอก/วางข้อความ')}});
 });
-document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('contextmenu',function(e){if(inExam&&acOn())e.preventDefault()});
 document.addEventListener('dragstart',function(e){e.preventDefault()});
-document.addEventListener('selectstart',function(e){if(inExam&&!/INPUT|TEXTAREA/.test(e.target.tagName))e.preventDefault()});
+document.addEventListener('selectstart',function(e){if(inExam&&acOn()&&!/INPUT|TEXTAREA/.test(e.target.tagName))e.preventDefault()});
 document.addEventListener('keydown',function(e){
-  if(!inExam||!isExam())return;
+  if(!inExam||!acOn())return;
   var k=(e.key||'').toLowerCase(),mod=e.ctrlKey||e.metaKey;
   if(k==='f12'||(mod&&e.shiftKey&&['i','j','c','s'].indexOf(k)>=0)){e.preventDefault();violation('เปิดเครื่องมือนักพัฒนา');return}
   if(mod&&['c','x','v','a','p','s','u','f','g'].indexOf(k)>=0){e.preventDefault();violation('ใช้คีย์ลัดต้องห้าม (Ctrl/⌘+'+k.toUpperCase()+')');return}
   if(k==='printscreen'||(e.metaKey&&e.shiftKey&&['3','4','5'].indexOf(k)>=0)){e.preventDefault();violation('จับภาพหน้าจอ');return}
   if(k==='f5'||(mod&&k==='r')){e.preventDefault();toast('ห้ามรีเฟรชระหว่างสอบ');return}
 });
-document.addEventListener('keyup',function(e){if(inExam&&isExam()&&(e.key||'').toLowerCase()==='printscreen'){violation('จับภาพหน้าจอ');try{navigator.clipboard&&navigator.clipboard.writeText('')}catch(x){}}});
+document.addEventListener('keyup',function(e){if(inExam&&acOn()&&(e.key||'').toLowerCase()==='printscreen'){violation('จับภาพหน้าจอ');try{navigator.clipboard&&navigator.clipboard.writeText('')}catch(x){}}});
 try{
   // กันแปลภาษา: แอปแทนที่ข้อความทั้งก้อนเสมอ ถ้ามี text node ถูกแก้ = ตัวแปลภาษา
   new MutationObserver(function(muts){
@@ -928,6 +931,7 @@ try{
 }catch(e){}
 
 function setWatermark(){
+  if(!CONFIG.ANTI_CHEAT){$('wm').classList.remove('on');return}
   var line=fullName()+'  ·  VOCAB BEAT 15–18  ·  ',txt='';
   for(var i=0;i<220;i++)txt+=line;
   $('wm').textContent=txt;$('wm').classList.add('on');
@@ -957,6 +961,7 @@ function renderResult(fresh){
   var g=$('r-grade');g.textContent=G[0]+' · '+pct+'%';g.style.background=G[1];g.style.boxShadow='0 0 30px '+G[1];
   var stp=$('r-stamp');
   if(!exam){stp.textContent='🎯 PRACTICE';stp.style.color='#b794ff'}
+  else if(!CONFIG.ANTI_CHEAT){stp.textContent='📝 EXAM';stp.style.color='#22f0ee'}
   else if(vio>0){stp.textContent='⚠ VIOLATION ×'+vio;stp.style.color='#ff4d6d'}
   else{stp.textContent='✓ CLEAN';stp.style.color='#3ef08f'}
   var per={15:[0,0],16:[0,0],17:[0,0],18:[0,0]};
@@ -969,13 +974,14 @@ function renderResult(fresh){
   $('r-attl').textContent=exam?'รอบที่สอบจริง':'รอบที่ฝึกซ้อม';
   $('r-att').textContent='รอบที่ '+(S.attempt||1);
   var rv=$('r-vio');
-  if(exam){rv.textContent=vio+' ครั้ง';rv.classList.toggle('flag',vio>0)}else{rv.textContent='— (ไม่ตรวจในโหมดฝึก)';rv.classList.remove('flag')}
+  if(exam&&!CONFIG.ANTI_CHEAT){rv.textContent='— (ไม่ตรวจ)';rv.classList.remove('flag')}
+  else if(exam){rv.textContent=vio+' ครั้ง';rv.classList.toggle('flag',vio>0)}else{rv.textContent='— (ไม่ตรวจในโหมดฝึก)';rv.classList.remove('flag')}
   $('r-codebox').style.display=exam?'':'none';
   $('r-code').textContent=exam?makeCode(fullName(),score,vio):'';
   var cap=$('r-capture');
   cap.textContent=exam?'📸 แคปหน้าจอนี้ส่งครู · ต้องเห็นชื่อ คะแนน และรหัสยืนยันผลครบ':'🎯 ผลฝึกซ้อม (ไม่ใช้ส่งครู) · ทบทวนข้อที่ผิดด้านล่าง แล้วฝึกรอบใหม่ได้เลย';
   var lg=$('r-vlog');
-  if(exam&&vio){lg.style.display='block';lg.innerHTML=S.vio.map(function(v,i){var d=new Date(v.t);return '<div>#'+(i+1)+' '+pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds())+' · ข้อ '+v.q+' · '+esc(v.k)+'</div>'}).join('')}
+  if(exam&&vio&&CONFIG.ANTI_CHEAT){lg.style.display='block';lg.innerHTML=S.vio.map(function(v,i){var d=new Date(v.t);return '<div>#'+(i+1)+' '+pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds())+' · ข้อ '+v.q+' · '+esc(v.k)+'</div>'}).join('')}
   else lg.style.display='none';
   // ทบทวนข้อผิด (เฉพาะโหมดฝึกซ้อม)
   var rvw=$('r-review');
