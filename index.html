@@ -260,6 +260,8 @@ body[data-set] .aurora i:nth-child(1){background:radial-gradient(circle,color-mi
 .flag{color:var(--red)!important;font-weight:900}
 .stamp{position:absolute;right:16px;top:18px;transform:rotate(12deg);font-weight:900;font-size:.8rem;letter-spacing:.14em;padding:6px 10px;border:2.5px solid currentColor;border-radius:8px;opacity:.9}
 
+.warn{margin:-6px 0 18px;padding:12px 14px;border-radius:14px;background:rgba(255,77,109,.1);border:1.5px solid rgba(255,77,109,.55);color:#ffd2db;font-size:.92rem;line-height:1.6;text-align:center}
+.warn b{color:#fff}.warn span{font-size:.84rem;color:#ffb3c1}
 .modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
 .mode{text-align:left;padding:14px 14px;border-radius:18px;background:rgba(255,255,255,.04);border:1.5px solid var(--line);transition:.25s;position:relative}
 .mode b{display:block;font-size:1.08rem;font-weight:900;margin-bottom:3px}
@@ -325,9 +327,10 @@ body[data-set] .aurora i:nth-child(1){background:radial-gradient(circle,color-mi
         <div class="stat"><b id="r-pool">0</b><span>ข้อในคลัง</span></div>
       </div>
       <div class="modes">
-        <button class="mode on" data-mode="exam"><b>📝 สอบจริง</b><span>จับเวลา · ไม่เฉลย · มีรหัสส่งครู</span></button>
-        <button class="mode" data-mode="practice"><b>🎯 ฝึกซ้อม</b><span>ไม่จับเวลา · เฉลยทันทีทุกข้อ</span></button>
+        <button class="mode on" data-mode="practice"><b>🎯 ฝึกซ้อม</b><span>ไม่จับเวลา · เฉลยทันทีทุกข้อ</span></button>
+        <button class="mode" data-mode="exam"><b>🔒 สอบจริง</b><span>ต้องใช้รหัสจากครูเท่านั้น</span></button>
       </div>
+      <div class="warn">⚠️ <b>นักเรียนห้ามกด “สอบจริง”</b> — ให้เลือก <b>ฝึกซ้อม</b> เท่านั้น<br><span>โหมดสอบจริงต้องใส่รหัสที่ครูให้ในวันสอบ</span></div>
       <h2>ลงทะเบียน</h2>
       <div class="fields">
         <div class="field"><input id="fname" placeholder=" " autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="40"><label for="fname">ชื่อ</label></div>
@@ -448,6 +451,19 @@ body[data-set] .aurora i:nth-child(1){background:radial-gradient(circle,color-mi
   </div>
 </div>
 
+<!-- exam code -->
+<div class="overlay" id="ov-code">
+  <div class="modal">
+    <div class="ico">🔒</div>
+    <h3>โหมดสอบจริง</h3>
+    <p>ใส่รหัสที่ครูให้เพื่อเข้าสอบจริง<br><span style="color:var(--gold)">ถ้าไม่มีรหัส ให้กลับไปเลือก “ฝึกซ้อม”</span></p>
+    <div class="field"><input id="c-in" type="password" inputmode="numeric" maxlength="10" autocomplete="off" placeholder=" "><label for="c-in">รหัสสอบจริง</label></div>
+    <div class="err" id="c-err"></div>
+    <button class="btn" id="c-ok">เข้าสอบจริง</button>
+    <button class="btn ghost" id="c-cancel">ยกเลิก</button>
+  </div>
+</div>
+
 <!-- teacher -->
 <div class="overlay" id="ov-teacher">
   <div class="modal" style="text-align:left">
@@ -483,6 +499,7 @@ body[data-set] .aurora i:nth-child(1){background:radial-gradient(circle,color-mi
 var CONFIG = {
   QUESTIONS: 30,          // จำนวนข้อต่อรอบ
   TIME_LIMIT_MIN: 30,     // เวลาสอบจริง (นาที) — โหมดฝึกซ้อมไม่จับเวลา
+  EXAM_CODE: '1112',     // รหัสเข้าโหมดสอบจริง (ครูบอกนักเรียนตอนสอบ)
   ANTI_CHEAT: false,      // true = เปิดระบบตรวจทุจริตในโหมดสอบจริง / false = ปิด (ทั้ง 2 โหมด)
   MAX_VIOLATIONS: 3,      // สอบจริง: ทุจริตครบกี่ครั้งส่งอัตโนมัติ
   TEACHER_PIN: '7846',    // PIN เมนูครู
@@ -719,7 +736,7 @@ function setMode(m){
   $('btn-start').textContent=m==='exam'?'▶ เริ่มสอบจริง':'🎯 เริ่มฝึกซ้อม';
 }
 Array.prototype.forEach.call(document.querySelectorAll('.mode'),function(b){b.addEventListener('click',function(){setMode(b.getAttribute('data-mode'));SFX.tap()})});
-setMode('exam');
+setMode('practice');
 $('agree').addEventListener('change',function(){$('btn-start').disabled=!this.checked;if(this.checked)SFX.tap()});
 var NAME_RE=/^[A-Za-z฀-๿][A-Za-z฀-๿ .'-]*$/;
 $('btn-start').addEventListener('click',function(){
@@ -727,12 +744,26 @@ $('btn-start').addEventListener('click',function(){
   if(f.length<2||l.length<2){e.textContent='กรุณากรอกชื่อและนามสกุลให้ครบ (อย่างน้อย 2 ตัวอักษร)';return}
   if(!NAME_RE.test(f)||!NAME_RE.test(l)){e.textContent='ชื่อ-นามสกุลใช้ได้เฉพาะตัวอักษรไทยหรืออังกฤษ';return}
   e.textContent='';SFX.tap();
+  if(MODE==='exam'){askCode(showConfirm);return}
+  showConfirm();
+});
+function showConfirm(){
+  var f=normName($('fname').value),l=normName($('lname').value);
   $('confirm-ico').textContent=MODE==='exam'?'📝':'🎯';
   $('confirm-msg').innerHTML='ชื่อ: <b style="color:var(--cyan)">'+esc(f+' '+l)+'</b><br>'+(MODE==='exam'
     ?'<b>โหมดสอบจริง</b> · เวลา '+CONFIG.TIME_LIMIT_MIN+' นาทีเริ่มนับทันที'+(CONFIG.ANTI_CHEAT?'<br>ระบบกันทุจริตทำงานตลอดการสอบ':'')
     :'<b>โหมดฝึกซ้อม</b> · ไม่จับเวลา<br>ตอบแล้วเฉลยทันทีทุกข้อ');
   $('ov-confirm').classList.add('on');
+}
+/* รหัสเข้าโหมดสอบจริง */
+var codeCb=null;
+function askCode(cb){codeCb=cb;$('c-in').value='';$('c-err').textContent='';$('ov-code').classList.add('on');setTimeout(function(){try{$('c-in').focus()}catch(e){}},50)}
+$('c-ok').addEventListener('click',function(){
+  if(normName($('c-in').value)===String(CONFIG.EXAM_CODE)){$('ov-code').classList.remove('on');var cb=codeCb;codeCb=null;SFX.go();if(cb)cb()}
+  else{$('c-err').textContent='รหัสไม่ถูกต้อง — สอบจริงได้เฉพาะเมื่อครูให้รหัส';$('c-in').value='';SFX.alarm()}
 });
+$('c-in').addEventListener('keydown',function(e){if(e.key==='Enter')$('c-ok').click()});
+$('c-cancel').addEventListener('click',function(){$('ov-code').classList.remove('on');codeCb=null});
 $('btn-cancel').addEventListener('click',function(){$('ov-confirm').classList.remove('on')});
 var starting=false;
 $('btn-go').addEventListener('click',function(){
@@ -756,8 +787,9 @@ function again(mode){
   var f=S.fname,l=S.lname;
   runCountdown(function(){retaking=false;newAttempt(f,l,mode)});
 }
-$('btn-retake').addEventListener('click',function(){again(S.mode)});
-$('btn-other').addEventListener('click',function(){again(S.mode==='exam'?'practice':'exam')});
+function againGuard(m){if(m==='exam')askCode(function(){again('exam')});else again(m)}
+$('btn-retake').addEventListener('click',function(){againGuard(S.mode)});
+$('btn-other').addEventListener('click',function(){againGuard(S.mode==='exam'?'practice':'exam')});
 $('btn-switch').addEventListener('click',function(){
   document.body.removeAttribute('data-set');$('wm').classList.remove('on');
   $('fname').value='';$('lname').value='';$('agree').checked=false;$('btn-start').disabled=true;starting=false;
@@ -996,7 +1028,7 @@ function renderResult(fresh){
     }).join(''):'<div class="rv" style="text-align:center">เยี่ยมมาก! ถูกทุกข้อ 🎉</div>');
   }else rvw.style.display='none';
   $('btn-retake').textContent=exam?'🔁 สอบจริงอีกครั้ง (ข้อใหม่)':'🔁 ฝึกซ้อมอีกครั้ง (ข้อใหม่)';
-  $('btn-other').textContent=exam?'🎯 ไปโหมดฝึกซ้อม':'📝 ไปสอบจริง';
+  $('btn-other').textContent=exam?'🎯 ไปโหมดฝึกซ้อม':'🔒 สอบจริง (ต้องใช้รหัสจากครู)';
 
   var bar=$('ring-bar'),C=597,sc=$('r-score');
   bar.style.transition='none';bar.style.strokeDashoffset=C;void bar.getBoundingClientRect();
